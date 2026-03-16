@@ -1,0 +1,16 @@
+.stars { display: flex; align-items: center; gap: 3px; }
+.star {
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  padding: 0; line-height: 1;
+}
+.star:not(:disabled):hover { transform: scale(1.2); }
+.full  { color: var(--color-gold); filter: drop-shadow(0 0 4px rgba(255,209,102,0.5)); }
+.half  { color: var(--color-gold); }
+.empty { color: var(--color-text-muted); }
+.readonly .star { cursor: default; }
+.score {
+  margin-left: var(--space-2);
+  font-family: var(--font-mono); font-size: 14px; font-weight: 700;
+  color: var(--color-gold);
+}

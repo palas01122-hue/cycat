@@ -1,0 +1,89 @@
+import { useState, useCallback } from 'react'
+import { usePaginatedFetch, useFetch } from '../hooks/useFetch'
+import { catalogAPI } from '../services/api'
+import MediaGrid from '../components/catalog/MediaGrid'
+import styles from './CatalogPage.module.css'
+
+export default function CatalogPage({ type = 'movie' }) {
+  const [activeGenre, setActiveGenre] = useState(null)
+  const [sortBy, setSortBy]           = useState('popular')
+
+  const { data: genreData } = useFetch(
+    () => catalogAPI.getGenres(type),
+    [type]
+  )
+
+  const fetchFn = useCallback((page) => {
+    if (activeGenre) return catalogAPI.getByGenre(type, activeGenre, page)
+    if (sortBy === 'top')   return catalogAPI.getTopRated(type, page)
+    return type === 'movie'
+      ? catalogAPI.getPopularMovies(page)
+      : catalogAPI.getPopularSeries(page)
+  }, [type, activeGenre, sortBy])
+
+  const { items, loading, loadMore, hasMore } = usePaginatedFetch(fetchFn, [type, activeGenre, sortBy])
+
+  const typeLabel = type === 'movie' ? 'Películas' : 'Series'
+
+  return (
+    <div className={`container page-enter ${styles.page}`}>
+      <header className={styles.header}>
+        <h1 className="heading-lg">{typeLabel}</h1>
+
+        <div className={styles.controls}>
+          {/* Sort */}
+          <div className={styles.sortBtns}>
+            <button
+              className={sortBy === 'popular' ? styles.activeSort : styles.sortBtn}
+              onClick={() => { setSortBy('popular'); setActiveGenre(null) }}
+            >
+              Populares
+            </button>
+            <button
+              className={sortBy === 'top' ? styles.activeSort : styles.sortBtn}
+              onClick={() => { setSortBy('top'); setActiveGenre(null) }}
+            >
+              Mejor valoradas
+            </button>
+          </div>
+        </div>
+
+        {/* Genre filter */}
+        {genreData?.genres && (
+          <div className={styles.genres}>
+            <button
+              className={!activeGenre ? styles.activeGenre : styles.genreBtn}
+              onClick={() => setActiveGenre(null)}
+            >
+              Todos
+            </button>
+            {genreData.genres.slice(0, 12).map(g => (
+              <button
+                key={g.id}
+                className={activeGenre === g.id ? styles.activeGenre : styles.genreBtn}
+                onClick={() => setActiveGenre(g.id)}
+              >
+                {g.name}
+              </button>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <MediaGrid items={items} type={type} loading={loading} />
+
+      {hasMore && (
+        <div className={styles.loadMoreWrap}>
+          <button
+            className={styles.loadMore}
+            onClick={loadMore}
+            disabled={loading}
+            data-testid="load-more-btn"
+          >
+            {loading ? 'Cargando...' : 'Cargar más'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}

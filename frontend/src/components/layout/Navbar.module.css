@@ -1,0 +1,101 @@
+.header {
+  position: fixed; top:0; left:0; right:0;
+  height: var(--nav-height); z-index: 100;
+  transition: background var(--transition-normal), backdrop-filter var(--transition-normal), border-color var(--transition-normal);
+  border-bottom: 1px solid transparent;
+}
+.header.scrolled {
+  background: var(--color-bg-overlay);
+  backdrop-filter: blur(24px);
+  border-bottom-color: var(--color-border);
+}
+.inner { display: flex; align-items: center; height: 100%; gap: var(--space-6); }
+
+.logo { display: flex; align-items: center; flex-shrink: 0; }
+
+.nav { display: flex; align-items: center; gap: var(--space-1); }
+.link, .activeLink {
+  padding: var(--space-2) var(--space-3);
+  font-size: 14px; font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  color: var(--color-text-secondary);
+}
+.link:hover { color: var(--color-text-primary); background: rgba(255,220,180,0.06); }
+.activeLink  { color: var(--color-accent); background: var(--color-accent-dim); }
+
+.searchForm {
+  flex: 1; max-width: 280px;
+  display: flex; align-items: center;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.searchForm:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-dim);
+}
+.searchInput {
+  flex: 1; background: transparent; border: none; outline: none;
+  padding: var(--space-2) var(--space-3);
+  font-size: 13px; color: var(--color-text-primary);
+}
+.searchInput::placeholder { color: var(--color-text-muted); }
+.searchBtn { padding: var(--space-2) var(--space-3); color: var(--color-text-muted); transition: color var(--transition-fast); }
+.searchBtn:hover { color: var(--color-accent); }
+
+.authZone { display: flex; align-items: center; gap: var(--space-3); margin-left: auto; }
+.loginBtn {
+  font-size: 14px; font-weight: 500; color: var(--color-text-secondary);
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-md);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+.loginBtn:hover { color: var(--color-text-primary); background: rgba(255,220,180,0.06); }
+.registerBtn {
+  padding: 8px 20px;
+  background: var(--color-accent);
+  color: #fff5ee;
+  font-size: 13px; font-weight: 700;
+  border-radius: var(--radius-lg);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 2px 12px rgba(232,149,109,0.3);
+}
+.registerBtn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(232,149,109,0.45); }
+
+.userMenu { display: flex; align-items: center; gap: var(--space-3); }
+.userBtn {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: 4px 12px 4px 4px;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  transition: border-color var(--transition-fast);
+}
+.userBtn:hover { border-color: var(--color-accent); }
+.userAvatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+.userInitial {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--color-accent-dim);
+  color: var(--color-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+}
+.userName { font-size: 13px; font-weight: 600; color: var(--color-gold); }
+.logoutBtn { font-size: 13px; color: var(--color-text-muted); transition: color var(--transition-fast); }
+.logoutBtn:hover { color: var(--color-accent-2); }
+
+.mobileToggle { display: none; flex-direction: column; gap: 5px; padding: var(--space-2); }
+.mobileToggle span { display: block; width: 22px; height: 2px; background: var(--color-text-primary); border-radius: 2px; }
+
+@media (max-width: 768px) {
+  .mobileToggle { display: flex; }
+  .nav {
+    display: none; position: absolute; top: var(--nav-height); left: 0; right: 0;
+    background: var(--color-bg-card); border-bottom: 1px solid var(--color-border);
+    flex-direction: column; padding: var(--space-4); gap: var(--space-2);
+  }
+  .navOpen { display: flex; }
+  .searchForm { max-width: 140px; }
+}

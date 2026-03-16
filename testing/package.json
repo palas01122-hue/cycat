@@ -1,0 +1,19 @@
+{
+  "name": "@cycat/testing",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:catalog": "playwright test specs/catalogo.spec.js",
+    "test:detail": "playwright test specs/detalle.spec.js",
+    "test:auth": "playwright test specs/auth.spec.js",
+    "test:rankings": "playwright test specs/rankings.spec.js",
+    "test:api": "playwright test specs/api-contract.spec.js",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.46.0"
+  }
+}

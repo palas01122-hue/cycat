@@ -1,0 +1,115 @@
+.wrap { display: flex; flex-direction: column; gap: var(--space-6); }
+
+.loading { color: var(--color-text-muted); font-size: 14px; padding: var(--space-4) 0; }
+
+.statsCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.statCard {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  text-align: center;
+  transition: border-color var(--transition-fast);
+}
+.statCard:hover { border-color: var(--color-border-hover); }
+
+.statIcon { font-size: 20px; margin-bottom: 2px; }
+.statValue {
+  font-family: var(--font-display);
+  font-size: 26px; font-weight: 900;
+  line-height: 1;
+}
+.statLabel {
+  font-size: 11px; color: var(--color-text-muted);
+  text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+}
+
+/* Distribution chart */
+.block {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.blockTitle {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-text-muted); margin-bottom: var(--space-5);
+}
+
+.distChart {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  height: 100px;
+}
+
+.distBar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.barCount {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  min-height: 14px;
+}
+
+.bar {
+  width: 100%;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: height var(--transition-slow);
+  min-height: 4px;
+}
+
+.barLabel {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+/* Year activity */
+.yearList { display: flex; flex-direction: column; gap: var(--space-3); }
+.yearRow { display: flex; align-items: center; gap: var(--space-3); }
+.yearLabel {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+  color: var(--color-text-secondary); width: 40px; flex-shrink: 0;
+}
+.yearBarWrap {
+  flex: 1;
+  height: 8px;
+  background: var(--color-bg-card);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.yearBar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-gold) 100%);
+  border-radius: 999px;
+  transition: width var(--transition-slow);
+}
+.yearCount {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--color-text-muted); width: 30px; text-align: right;
+}
+
+@media (max-width: 600px) {
+  .statsCards { grid-template-columns: repeat(2, 1fr); }
+}
