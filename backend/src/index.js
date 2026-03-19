@@ -25,7 +25,26 @@ const app  = express()
 const PORT = process.env.PORT || 3001
 
 app.use(helmet())
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173', credentials: true }))
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL_WWW,
+  'https://cycat.lat',
+  'https://www.cycat.lat',
+  'https://cycat-frontend.vercel.app',
+].filter(Boolean)
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('CORS no permitido: ' + origin))
+    }
+  },
+  credentials: true
+}))
 app.use(express.json())
 app.use(session({
   secret: process.env.JWT_SECRET || 'cycat_session_secret',
