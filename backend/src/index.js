@@ -18,13 +18,17 @@ import reviewsRoutes   from './routes/reviews.js'
 import statsRoutes     from './routes/stats.js'
 import diaryRoutes     from './routes/diary.js'
 import listsRoutes     from './routes/lists.js'
-import discoverRoutes   from './routes/discover.js'
+import discoverRoutes  from './routes/discover.js'
 import streamingRoutes from './routes/streaming.js'
 
 const app  = express()
 const PORT = process.env.PORT || 3001
 
+// Railway usa proxy — necesario para rate limiting y cookies
+app.set('trust proxy', 1)
+
 app.use(helmet())
+
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
@@ -45,11 +49,17 @@ app.use(cors({
   },
   credentials: true
 }))
+
 app.use(express.json())
 app.use(session({
   secret: process.env.JWT_SECRET || 'cycat_session_secret',
-  resave: false, saveUninitialized: false,
-  cookie: { secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 }
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    maxAge: 7 * 24 * 60 * 60 * 1000
+  }
 }))
 app.use(passport.initialize())
 app.use(passport.session())
