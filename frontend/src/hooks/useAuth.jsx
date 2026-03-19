@@ -3,6 +3,8 @@ import { authAPI } from '../services/api'
 
 const AuthContext = createContext(null)
 
+const API_BASE = (import.meta?.env?.VITE_API_BASE_URL || 'http://localhost:3001/api').replace('/api', '')
+
 export function AuthProvider({ children }) {
   const [user, setUser]       = useState(null)
   const [loading, setLoading] = useState(true)
@@ -39,13 +41,15 @@ export function AuthProvider({ children }) {
     setUser(null)
   }, [])
 
-  // Para el callback de Google OAuth
   const setUserFromToken = useCallback((userData) => {
     setUser(userData)
   }, [])
 
   const loginWithGoogle = useCallback(() => {
-    window.location.href = 'http://localhost:3001/api/auth/google'
+    const base = import.meta.env.VITE_API_BASE_URL
+      ? import.meta.env.VITE_API_BASE_URL.replace('/api', '')
+      : 'http://localhost:3001'
+    window.location.href = `${base}/api/auth/google`
   }, [])
 
   return (

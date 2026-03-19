@@ -8,6 +8,9 @@ import { authenticate } from '../middleware/auth.js'
 const router = Router()
 const wrap = fn => (req, res, next) => fn(req, res, next).catch(next)
 
+// URL del frontend — usa variable de entorno o localhost
+const FRONTEND = process.env.FRONTEND_URL || 'http://localhost:5173'
+
 function makeToken(user) {
   return jwt.sign(
     { id: user.id, username: user.username, email: user.email, avatar: user.avatar },
@@ -58,11 +61,10 @@ router.get('/google',
 )
 
 router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:5173/login?error=google' }),
+  passport.authenticate('google', { failureRedirect: `${FRONTEND}/login?error=google` }),
   (req, res) => {
     const token = makeToken(req.user)
-    // Redirigir al frontend con el token en la URL
-    res.redirect(`http://localhost:5173/auth/callback?token=${token}`)
+    res.redirect(`${FRONTEND}/auth/callback?token=${token}`)
   }
 )
 
