@@ -3,10 +3,10 @@ import { authAPI } from '../services/api'
 
 const AuthContext = createContext(null)
 
-const API_BASE = (import.meta?.env?.VITE_API_BASE_URL || 'http://localhost:3001/api').replace('/api', '')
+const API_BASE = (import.meta?.env?.VITE_API_URL || import.meta?.env?.VITE_API_BASE_URL || 'http://localhost:3001/api').replace('/api', '')
 
 export function AuthProvider({ children }) {
-  const [user, setUser]       = useState(null)
+  const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
   }, [])
 
   const logout = useCallback(async () => {
-    try { await authAPI.logout() } catch {}
+    try { await authAPI.logout() } catch { }
     localStorage.removeItem('cycat_token')
     setUser(null)
   }, [])
@@ -46,9 +46,8 @@ export function AuthProvider({ children }) {
   }, [])
 
   const loginWithGoogle = useCallback(() => {
-    const base = import.meta.env.VITE_API_BASE_URL
-      ? import.meta.env.VITE_API_BASE_URL.replace('/api', '')
-      : 'http://localhost:3001'
+    const base = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001')
+      .replace('/api', '')
     window.location.href = `${base}/api/auth/google`
   }, [])
 
