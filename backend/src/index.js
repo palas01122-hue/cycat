@@ -37,11 +37,17 @@ const allowedOrigins = [
   'https://cycat.lat',
   'https://www.cycat.lat',
   'https://cycat-frontend.vercel.app',
+  'https://cycat-frontend-rm8cl2rjf-palas01122-hues-projects.vercel.app',
 ].filter(Boolean)
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Permitir cualquier subdominio de vercel.app del proyecto cycat-frontend
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      /^https:\/\/cycat-frontend.*\.vercel\.app$/.test(origin)
+    ) {
       callback(null, true)
     } else {
       callback(new Error('CORS no permitido: ' + origin))
