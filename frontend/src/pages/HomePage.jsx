@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import { useFetch } from '../hooks/useFetch'
 import { catalogAPI } from '../services/api'
 import MediaGrid from '../components/catalog/MediaGrid'
@@ -5,12 +6,28 @@ import StreamingSection from '../components/catalog/StreamingSection'
 import styles from './HomePage.module.css'
 
 export default function HomePage() {
-  const { data: trending,  loading: lt } = useFetch(() => catalogAPI.getTrending('all', 'week'), [])
+  const { data: trending, loading: lt } = useFetch(() => catalogAPI.getTrending('all', 'week'), [])
   const { data: topMovies, loading: lm } = useFetch(() => catalogAPI.getTopRated('movie'), [])
   const { data: topSeries, loading: ls } = useFetch(() => catalogAPI.getTopRated('tv'), [])
 
   return (
     <div className={`page-enter ${styles.page}`}>
+      <Helmet>
+        <title>CyCat — Tu catálogo de películas y series</title>
+        <meta name="description" content="Explorá, calificá y descubrí películas y series. Rankings, reseñas y recomendaciones personalizadas. Tu catálogo personal de cine gratis." />
+        <link rel="canonical" href="https://cycat.lat" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="CyCat — Tu catálogo de películas y series" />
+        <meta property="og:description" content="Explorá, calificá y descubrí películas y series. Rankings, reseñas y recomendaciones personalizadas." />
+        <meta property="og:image" content="https://cycat.lat/og-default.jpg" />
+        <meta property="og:url" content="https://cycat.lat" />
+        <meta property="og:site_name" content="CyCat" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="CyCat — Tu catálogo de películas y series" />
+        <meta name="twitter:description" content="Explorá, calificá y descubrí películas y series gratis." />
+        <meta name="twitter:image" content="https://cycat.lat/og-default.jpg" />
+      </Helmet>
+
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroBg} />
@@ -104,21 +121,21 @@ export default function HomePage() {
 function CinemaArmchair() {
   return (
     <svg viewBox="0 0 130 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="22" y="118" width="10" height="32" rx="5" fill="#4a2f1a"/>
-      <rect x="98" y="118" width="10" height="32" rx="5" fill="#4a2f1a"/>
-      <rect x="8"  y="65"  width="114" height="58" rx="16" fill="#b85c5c"/>
-      <rect x="14" y="10"  width="102" height="62" rx="14" fill="#cc6e6e"/>
-      <rect x="24" y="17"  width="40"  height="9"  rx="5"  fill="#e08888" opacity="0.3"/>
-      <rect x="0"   y="42" width="22" height="60" rx="11" fill="#b85c5c"/>
-      <rect x="108" y="42" width="22" height="60" rx="11" fill="#b85c5c"/>
-      <rect x="106" y="22" width="26" height="30" rx="6" fill="#e8c97a"/>
-      <ellipse cx="119" cy="22" rx="13" ry="8" fill="#f5ede0"/>
-      <circle cx="110" cy="16" r="8"  fill="#f5ede0"/>
-      <circle cx="119" cy="11" r="9"  fill="#f5ede0"/>
-      <circle cx="129" cy="14" r="8"  fill="#f5ede0"/>
-      <circle cx="112" cy="6"  r="7"  fill="#ede3ce"/>
-      <circle cx="123" cy="4"  r="8"  fill="#ede3ce"/>
-      <circle cx="118" cy="-2" r="6"  fill="#f5ede0"/>
+      <rect x="22" y="118" width="10" height="32" rx="5" fill="#4a2f1a" />
+      <rect x="98" y="118" width="10" height="32" rx="5" fill="#4a2f1a" />
+      <rect x="8" y="65" width="114" height="58" rx="16" fill="#b85c5c" />
+      <rect x="14" y="10" width="102" height="62" rx="14" fill="#cc6e6e" />
+      <rect x="24" y="17" width="40" height="9" rx="5" fill="#e08888" opacity="0.3" />
+      <rect x="0" y="42" width="22" height="60" rx="11" fill="#b85c5c" />
+      <rect x="108" y="42" width="22" height="60" rx="11" fill="#b85c5c" />
+      <rect x="106" y="22" width="26" height="30" rx="6" fill="#e8c97a" />
+      <ellipse cx="119" cy="22" rx="13" ry="8" fill="#f5ede0" />
+      <circle cx="110" cy="16" r="8" fill="#f5ede0" />
+      <circle cx="119" cy="11" r="9" fill="#f5ede0" />
+      <circle cx="129" cy="14" r="8" fill="#f5ede0" />
+      <circle cx="112" cy="6" r="7" fill="#ede3ce" />
+      <circle cx="123" cy="4" r="8" fill="#ede3ce" />
+      <circle cx="118" cy="-2" r="6" fill="#f5ede0" />
     </svg>
   )
 }
@@ -126,22 +143,22 @@ function CinemaArmchair() {
 function Popcorn() {
   return (
     <svg viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <polygon points="15,55 85,55 73,148 27,148" fill="#b84444"/>
-      <rect x="15" y="44" width="70" height="18" rx="6" fill="#cc5555"/>
-      <line x1="38" y1="55" x2="35" y2="148" stroke="#f5ede0" strokeWidth="2" opacity="0.1"/>
-      <line x1="62" y1="55" x2="65" y2="148" stroke="#f5ede0" strokeWidth="2" opacity="0.1"/>
+      <polygon points="15,55 85,55 73,148 27,148" fill="#b84444" />
+      <rect x="15" y="44" width="70" height="18" rx="6" fill="#cc5555" />
+      <line x1="38" y1="55" x2="35" y2="148" stroke="#f5ede0" strokeWidth="2" opacity="0.1" />
+      <line x1="62" y1="55" x2="65" y2="148" stroke="#f5ede0" strokeWidth="2" opacity="0.1" />
       <text x="50" y="105" fontFamily="Georgia, serif" fontSize="12" fill="#f5ede0" textAnchor="middle" opacity="0.55">CyCat</text>
-      <circle cx="30" cy="42" r="13" fill="#f5ede0"/>
-      <circle cx="50" cy="30" r="16" fill="#f5ede0"/>
-      <circle cx="70" cy="40" r="13" fill="#ede3ce"/>
-      <circle cx="38" cy="20" r="12" fill="#ede3ce"/>
-      <circle cx="60" cy="16" r="14" fill="#f5ede0"/>
-      <circle cx="22" cy="26" r="11" fill="#ede3ce"/>
-      <circle cx="78" cy="24" r="12" fill="#f5ede0"/>
-      <circle cx="46" cy="8"  r="11" fill="#f5ede0"/>
-      <circle cx="65" cy="4"  r="12" fill="#ede3ce"/>
-      <circle cx="28" cy="10" r="10" fill="#f5ede0"/>
-      <circle cx="78" cy="10" r="10" fill="#ede3ce"/>
+      <circle cx="30" cy="42" r="13" fill="#f5ede0" />
+      <circle cx="50" cy="30" r="16" fill="#f5ede0" />
+      <circle cx="70" cy="40" r="13" fill="#ede3ce" />
+      <circle cx="38" cy="20" r="12" fill="#ede3ce" />
+      <circle cx="60" cy="16" r="14" fill="#f5ede0" />
+      <circle cx="22" cy="26" r="11" fill="#ede3ce" />
+      <circle cx="78" cy="24" r="12" fill="#f5ede0" />
+      <circle cx="46" cy="8" r="11" fill="#f5ede0" />
+      <circle cx="65" cy="4" r="12" fill="#ede3ce" />
+      <circle cx="28" cy="10" r="10" fill="#f5ede0" />
+      <circle cx="78" cy="10" r="10" fill="#ede3ce" />
     </svg>
   )
 }
@@ -150,9 +167,9 @@ function FilmStrip() {
   const holes = Array.from({ length: 22 }, (_, i) => i)
   return (
     <svg viewBox="0 0 1280 32" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="1280" height="32" fill="#2e2016"/>
+      <rect width="1280" height="32" fill="#2e2016" />
       {holes.map(i => (
-        <rect key={i} x={i * 58 + 4} y="4" width="20" height="24" rx="3" fill="#e8956d" opacity="0.35"/>
+        <rect key={i} x={i * 58 + 4} y="4" width="20" height="24" rx="3" fill="#e8956d" opacity="0.35" />
       ))}
     </svg>
   )

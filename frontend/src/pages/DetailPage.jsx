@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useFetch } from '../hooks/useFetch'
 import { detailAPI, rankingsAPI, diaryAPI } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
@@ -18,10 +19,10 @@ import styles from './DetailPage.module.css'
 export default function DetailPage({ type = 'movie' }) {
   const { id } = useParams()
   const { isAuthenticated } = useAuth()
-  const [userRating, setUserRating]           = useState(0)
+  const [userRating, setUserRating] = useState(0)
   const [ratingSubmitted, setRatingSubmitted] = useState(false)
-  const [showTrailer, setShowTrailer]         = useState(false)
-  const [diaryAdded, setDiaryAdded]           = useState(false)
+  const [showTrailer, setShowTrailer] = useState(false)
+  const [diaryAdded, setDiaryAdded] = useState(false)
 
   const fetchFn = type === 'movie' ? () => detailAPI.getMovie(id) : () => detailAPI.getSeries(id)
   const { data, loading, error } = useFetch(fetchFn, [id, type])
@@ -29,25 +30,33 @@ export default function DetailPage({ type = 'movie' }) {
   const { data: similar } = useFetch(() => detailAPI.getSimilar(type, id), [id])
 
   if (loading) return <DetailSkeleton />
-  if (error)   return <div className={`container ${styles.error}`}>Error al cargar el contenido.</div>
+  if (error) return <div className={`container ${styles.error}`}>Error al cargar el contenido.</div>
   if (!data?.data) return null
 
-  const item      = data.data
-  const title     = item.title || item.name
-  const year      = formatYear(item.release_date || item.first_air_date)
-  const rating    = formatRating(item.vote_average)
-  const rColor    = getRatingColor(item.vote_average)
-  const runtime   = formatRuntime(item.runtime || item.episode_run_time?.[0])
+  const item = data.data
+  const title = item.title || item.name
+  const year = formatYear(item.release_date || item.first_air_date)
+  const rating = formatRating(item.vote_average)
+  const rColor = getRatingColor(item.vote_average)
+  const runtime = formatRuntime(item.runtime || item.episode_run_time?.[0])
   const directors = credits?.data?.crew?.filter(p => p.job === 'Director') || []
-  const cast      = (credits?.data?.cast || []).filter(p => p.profile_path).slice(0, 12)
-  const trailer   = item.videos?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube')
+  const cast = (credits?.data?.cast || []).filter(p => p.profile_path).slice(0, 12)
+  const trailer = item.videos?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube')
+
+  const typeLabel = type === 'movie' ? 'Película' : 'Serie'
+  const description = item.overview
+    ? `${item.overview.slice(0, 150)}...`
+    : `${typeLabel} ${year} — Calificá y descubrí más en CyCat.`
+  const posterUrl = item.poster_path
+    ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+    : 'https://cycat.lat/og-default.jpg'
+  const pageUrl = `https://cycat.lat/${type === 'movie' ? 'movie' : 'tv'}/${id}`
 
   const handleRate = async (score) => {
     if (!isAuthenticated) return
     setUserRating(score)
     try {
       await rankingsAPI.rate(type, id, score, title, item.poster_path)
-      // También registra en el diario
       const today = new Date().toISOString().split('T')[0]
       await diaryAPI.add({
         contentId: id, type, title,
@@ -56,11 +65,53 @@ export default function DetailPage({ type = 'movie' }) {
       })
       setDiaryAdded(true)
       setRatingSubmitted(true)
-    } catch {}
+    } catch { }
   }
 
   return (
     <div className={`page-enter ${styles.page}`} data-testid="detail-page">
+      <Helmet>
+        <title>{title} ({year}) — CyCat</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content={type === 'movie' ? 'video.movie' : 'video.tv_show'} />
+        <meta property="og:title" content={`${title} (${year}) — CyCat`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={posterUrl} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:site_name" content="CyCat" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${title} (${year}) — CyCat`} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={posterUrl} />
+
+        {/* Schema.org JSON-LD */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": type === 'movie' ? "Movie" : "TVSeries",
+          "name": title,
+          "datePublished": item.release_date || item.first_air_date,
+          "description": item.overview,
+          "image": posterUrl,
+          "aggregateRating": item.vote_average ? {
+            "@type": "AggregateRating",
+            "ratingValue": item.vote_average.toFixed(1),
+            "ratingCount": item.vote_count,
+            "bestRating": "10",
+            "worstRating": "1"
+          } : undefined,
+          "director": directors.length > 0 ? directors.map(d => ({
+            "@type": "Person",
+            "name": d.name
+          })) : undefined,
+          "url": pageUrl
+        })}</script>
+      </Helmet>
+
       <div className={styles.backdropWrap}>
         <img src={getBackdropUrl(item.backdrop_path, 'lg')} alt="" className={styles.backdrop} aria-hidden="true" />
         <div className={styles.backdropOverlay} />
@@ -74,7 +125,7 @@ export default function DetailPage({ type = 'movie' }) {
 
           <div className={styles.infoSection}>
             <div className={styles.meta}>
-              <span className={styles.type}>{type === 'movie' ? 'Película' : 'Serie'}</span>
+              <span className={styles.type}>{typeLabel}</span>
               {item.genres?.map(g => <span key={g.id} className={styles.genre}>{g.name}</span>)}
             </div>
 
@@ -85,7 +136,7 @@ export default function DetailPage({ type = 'movie' }) {
               {runtime !== '—' && <><span className={styles.dot}>·</span><span>{runtime}</span></>}
               {item.original_language && (
                 <><span className={styles.dot}>·</span>
-                <span className={styles.lang}>{item.original_language.toUpperCase()}</span></>
+                  <span className={styles.lang}>{item.original_language.toUpperCase()}</span></>
               )}
             </div>
 
@@ -106,7 +157,6 @@ export default function DetailPage({ type = 'movie' }) {
               </div>
             )}
 
-            {/* Dónde verlo */}
             <WatchProviders type={type} id={id} />
 
             <div className={styles.actionRow}>
