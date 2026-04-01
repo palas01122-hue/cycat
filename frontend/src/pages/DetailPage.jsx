@@ -71,7 +71,7 @@ export default function DetailPage({ type = 'movie' }) {
   return (
     <div className={`page-enter ${styles.page}`} data-testid="detail-page">
       <Helmet>
-        <title>{title} ({year}) — CyCat</title>
+        <title>{`${title} (${year}) — CyCat`}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={pageUrl} />
 
