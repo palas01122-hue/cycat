@@ -1,0 +1,41 @@
+name: Instagram Auto Post
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'   # Lunes 11:00 AM Argentina
+    - cron: '0 14 * * 3'   # Miércoles 11:00 AM Argentina
+    - cron: '0 14 * * 5'   # Viernes 11:00 AM Argentina
+    - cron: '0 14 * * 0'   # Domingo 11:00 AM Argentina
+  workflow_dispatch:         # Permite correrlo manualmente
+    inputs:
+      post_type:
+        description: 'Tipo de post (trending/curiosity/mood/top5)'
+        required: false
+        default: 'trending'
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd scripts/instagram
+          npm install
+
+      - name: Run post script
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_BUSINESS_ID: ${{ secrets.INSTAGRAM_BUSINESS_ID }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          POST_TYPE: ${{ github.event.inputs.post_type }}
+        run: |
+          cd scripts/instagram
+          node post.mjs
