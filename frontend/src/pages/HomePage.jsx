@@ -5,6 +5,33 @@ import MediaGrid from '../components/catalog/MediaGrid'
 import StreamingSection from '../components/catalog/StreamingSection'
 import styles from './HomePage.module.css'
 
+const CLASSIC_POSTERS = [
+  '/3bhkrj58Vtu7enYsLlegkKXFo4f.jpg',
+  '/saHP97rTPS5eLmrLQEcANmKrsFl.jpg',
+  '/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg',
+  '/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg',
+  '/rSPw7tgCH9c6NqICZef4kZjFOQ5.jpg',
+  '/oU7Oq2kFAAlGqbU4VoAE36g4hoI.jpg',
+  '/gNBCvtYyGPbjPCT1k3MvJuNuXR6.jpg',
+  '/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg',
+  '/8kSerJrhrJWKLk1LViesGcnrUPE.jpg',
+  '/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg',
+  '/velWPhVMQeQKcxggNEU8YmIo52R.jpg',
+  '/qJ2tW6WMUDux911r6m7haRef0WH.jpg',
+  '/cezWGskPY5x7GaglTTRN4Fugfb8.jpg',
+  '/yFihWxQcmqcaBR31QM6Y8gT6aYV.jpg',
+  '/4m1Au3YkjqsxF8iwQy0fPYSxE0h.jpg',
+  '/hek3koDUyRQk7FIhPXsa6mT2Zc3.jpg',
+  '/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg',
+  '/d5NXSklpcvkp85kpsiPyGCOk2Cs.jpg',
+  '/7lyBcpYB0Qt8gYhXYaEZUNlIGEh.jpg',
+  '/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',
+  '/pB8BM7pdSp6B6Ih7QpePilygR3h.jpg',
+  '/vzmL6fP7aPKNKPRTFnZmiUfciyV.jpg',
+  '/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg',
+  '/5KCVkau1HEl7ZzimPgpAZAkMJSk.jpg',
+]
+
 export default function HomePage() {
   const { data: trending, loading: lt } = useFetch(() => catalogAPI.getTrending('all', 'week'), [])
   const { data: topMovies, loading: lm } = useFetch(() => catalogAPI.getTopRated('movie'), [])
@@ -30,6 +57,19 @@ export default function HomePage() {
 
       {/* Hero */}
       <section className={styles.hero}>
+        {/* Mosaico de pósters clásicos de fondo */}
+        <div className={styles.heroPosterGrid} aria-hidden="true">
+          {CLASSIC_POSTERS.map((path, i) => (
+            <img
+              key={i}
+              src={`https://image.tmdb.org/t/p/w200${path}`}
+              alt=""
+              className={styles.heroPoster}
+              loading="lazy"
+            />
+          ))}
+        </div>
+
         <div className={styles.heroBg} />
         <div className={styles.armchairLeft}><CinemaArmchair /></div>
         <div className={styles.popcornRight}><Popcorn /></div>
@@ -73,12 +113,10 @@ export default function HomePage() {
         <MediaGrid items={trending?.results?.slice(0, 10)} loading={lt} skeletonCount={10} />
       </section>
 
-      {/* Netflix destacado */}
       <div className="container">
         <StreamingSection provider="netflix" />
       </div>
 
-      {/* Mejor valoradas */}
       <section className={`container ${styles.section}`}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionTitleWrap}>
@@ -90,12 +128,10 @@ export default function HomePage() {
         <MediaGrid items={topMovies?.results?.slice(0, 10)} type="movie" loading={lm} skeletonCount={10} />
       </section>
 
-      {/* Disney+ destacado */}
       <div className="container">
         <StreamingSection provider="disney" />
       </div>
 
-      {/* Series destacadas */}
       <section className={`container ${styles.section}`}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionTitleWrap}>
@@ -107,7 +143,6 @@ export default function HomePage() {
         <MediaGrid items={topSeries?.results?.slice(0, 10)} type="tv" loading={ls} skeletonCount={10} />
       </section>
 
-      {/* Link a todas las plataformas */}
       <div className="container">
         <a href="/streaming" className={styles.allPlatforms}>
           <span>Ver todas las plataformas — Netflix, Disney+, Max, Prime, Apple TV+, Paramount+</span>
