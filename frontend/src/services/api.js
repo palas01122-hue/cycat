@@ -135,3 +135,7 @@ export const streamingAPI = {
   getBest: (provider, type = 'movie') => api.get(`/streaming/${provider}/best`, { params: { type } }),
   getNew:  (provider, type = 'movie') => api.get(`/streaming/${provider}/new`,  { params: { type } }),
 }
+// ── Search Advanced ───────────────────────────────
+export const searchAdvancedAPI = {
+  search: (params) => api.get('/search/advanced', { params }),
+}
