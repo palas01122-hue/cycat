@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useFetch } from '../hooks/useFetch'
 import { detailAPI, rankingsAPI, diaryAPI } from '../services/api'
@@ -74,22 +74,16 @@ export default function DetailPage({ type = 'movie' }) {
         <title>{`${title} (${year}) — CyCat`}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={pageUrl} />
-
-        {/* Open Graph */}
         <meta property="og:type" content={type === 'movie' ? 'video.movie' : 'video.tv_show'} />
         <meta property="og:title" content={`${title} (${year}) — CyCat`} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={posterUrl} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:site_name" content="CyCat" />
-
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${title} (${year}) — CyCat`} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={posterUrl} />
-
-        {/* Schema.org JSON-LD */}
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": type === 'movie' ? "Movie" : "TVSeries",
@@ -153,7 +147,14 @@ export default function DetailPage({ type = 'movie' }) {
             {directors.length > 0 && (
               <div className={styles.crew}>
                 <span className={styles.crewLabel}>Dirección</span>
-                <span className={styles.crewNames}>{directors.map(d => d.name).join(', ')}</span>
+                <span className={styles.crewNames}>
+                  {directors.map((d, i) => (
+                    <span key={d.id}>
+                      <Link to={`/person/${d.id}`} className={styles.crewLink}>{d.name}</Link>
+                      {i < directors.length - 1 ? ', ' : ''}
+                    </span>
+                  ))}
+                </span>
               </div>
             )}
 
@@ -194,13 +195,13 @@ export default function DetailPage({ type = 'movie' }) {
             <h2 className={styles.sectionTitle}>Reparto</h2>
             <div className={styles.castGrid}>
               {cast.map(person => (
-                <div key={person.id} className={styles.castCard}>
+                <Link key={person.id} to={`/person/${person.id}`} className={styles.castCard}>
                   <img src={getProfileUrl(person.profile_path, 'md')} alt={person.name} className={styles.castPhoto} loading="lazy" />
                   <div className={styles.castInfo}>
                     <span className={styles.castName}>{person.name}</span>
                     <span className={styles.castRole}>{person.character}</span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>

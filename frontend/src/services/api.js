@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -38,6 +38,7 @@ export const catalogAPI = {
 export const detailAPI = {
   getMovie:   (id)       => api.get(`/detail/movie/${id}`),
   getSeries:  (id)       => api.get(`/detail/tv/${id}`),
+  getPerson:  (id)       => api.get(`/detail/person/${id}`),
   getCredits: (type, id) => api.get(`/detail/${type}/${id}/credits`),
   getVideos:  (type, id) => api.get(`/detail/${type}/${id}/videos`),
   getSimilar: (type, id) => api.get(`/detail/${type}/${id}/similar`),
@@ -127,11 +128,6 @@ export const listsAPI = {
   delete:      (id)        => api.delete(`/lists/${id}`),
   addItem:     (id, data)  => api.post(`/lists/${id}/items`, data),
   removeItem:  (id, cid)   => api.delete(`/lists/${id}/items/${cid}`),
-}
-
-// ── Search Advanced ───────────────────────────────
-export const searchAdvancedAPI = {
-  search: (params) => api.get('/search/advanced', { params }),
 }
 
 // ── Streaming ─────────────────────────────────────

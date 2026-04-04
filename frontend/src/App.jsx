@@ -6,6 +6,7 @@ import ScrollToTop from './components/layout/ScrollToTop'
 import HomePage from './pages/HomePage'
 import CatalogPage from './pages/CatalogPage'
 import DetailPage from './pages/DetailPage'
+import PersonPage from './pages/PersonPage'
 import SearchPage from './pages/SearchPage'
 import RankingsPage from './pages/RankingsPage'
 import LoginPage from './pages/LoginPage'
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="series" element={<CatalogPage type="tv" />} />
               <Route path="movie/:id" element={<DetailPage type="movie" />} />
               <Route path="tv/:id" element={<DetailPage type="tv" />} />
+              <Route path="person/:id" element={<PersonPage />} />
               <Route path="search" element={<SearchPage />} />
               <Route path="rankings" element={<RankingsPage />} />
               <Route path="login" element={<LoginPage />} />
