@@ -1,7 +1,6 @@
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import { getDb } from '../utils/database.js'
-import jwt from 'jsonwebtoken'
 
 passport.use(new GoogleStrategy({
   clientID:     process.env.GOOGLE_CLIENT_ID,
@@ -11,9 +10,8 @@ passport.use(new GoogleStrategy({
   try {
     const db = getDb()
 
-    const email    = profile.emails?.[0]?.value
-    const username = profile.displayName?.replace(/\s+/g, '_').toLowerCase() || `user_${profile.id}`
-    const avatar   = profile.photos?.[0]?.value
+    const email  = profile.emails?.[0]?.value
+    const avatar = profile.photos?.[0]?.value
 
     if (!email) return done(new Error('No se pudo obtener el email de Google'))
 
@@ -22,13 +20,27 @@ passport.use(new GoogleStrategy({
                  .get(profile.id, email)
 
     if (user) {
-      // Actualizar google_id si se registró antes con email
+      // Actualizar google_id y avatar si se registró antes con email
       if (!user.google_id) {
         db.prepare('UPDATE users SET google_id = ?, avatar = ? WHERE id = ?')
           .run(profile.id, avatar, user.id)
       }
     } else {
-      // Crear usuario nuevo
+      // Generar username base
+      const baseUsername = profile.displayName
+        ?.replace(/\s+/g, '_')
+        .toLowerCase()
+        .replace(/[^a-z0-9_]/g, '')
+        || `user_${profile.id}`
+
+      // Verificar si el username ya existe y agregar sufijo si es necesario
+      let username = baseUsername
+      let attempts = 0
+      while (db.prepare('SELECT id FROM users WHERE username = ?').get(username)) {
+        attempts++
+        username = `${baseUsername}_${attempts}`
+      }
+
       const result = db.prepare(`
         INSERT INTO users (username, email, google_id, avatar, password)
         VALUES (?, ?, ?, ?, '')
