@@ -42,6 +42,8 @@ export const detailAPI = {
   getCredits: (type, id) => api.get(`/detail/${type}/${id}/credits`),
   getVideos:  (type, id) => api.get(`/detail/${type}/${id}/videos`),
   getSimilar: (type, id) => api.get(`/detail/${type}/${id}/similar`),
+  getReviews: (type, id) => api.get(`/detail/${type}/${id}/reviews`),
+  getScores:  (id)       => api.get(`/detail/movie/${id}/scores`),
 }
 
 // ── Search ───────────────────────────────────────
@@ -135,6 +137,7 @@ export const streamingAPI = {
   getBest: (provider, type = 'movie') => api.get(`/streaming/${provider}/best`, { params: { type } }),
   getNew:  (provider, type = 'movie') => api.get(`/streaming/${provider}/new`,  { params: { type } }),
 }
+
 // ── Search Advanced ───────────────────────────────
 export const searchAdvancedAPI = {
   search: (params) => api.get('/search/advanced', { params }),

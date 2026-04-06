@@ -13,6 +13,8 @@ import { FavoriteButton, WatchlistButton } from '../components/ui/ActionButtons'
 import TrailerModal from '../components/ui/TrailerModal'
 import ReviewSection from '../components/detail/ReviewSection'
 import WatchProviders from '../components/detail/WatchProviders'
+import ExternalScores from '../components/detail/ExternalScores'
+import TmdbReviews from '../components/detail/TmdbReviews'
 import MediaGrid from '../components/catalog/MediaGrid'
 import styles from './DetailPage.module.css'
 
@@ -99,8 +101,7 @@ export default function DetailPage({ type = 'movie' }) {
             "worstRating": "1"
           } : undefined,
           "director": directors.length > 0 ? directors.map(d => ({
-            "@type": "Person",
-            "name": d.name
+            "@type": "Person", "name": d.name
           })) : undefined,
           "url": pageUrl
         })}</script>
@@ -160,6 +161,9 @@ export default function DetailPage({ type = 'movie' }) {
 
             <WatchProviders type={type} id={id} />
 
+            {/* Scores externos solo para películas */}
+            {type === 'movie' && <ExternalScores movieId={id} />}
+
             <div className={styles.actionRow}>
               <FavoriteButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
               <WatchlistButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
@@ -208,6 +212,9 @@ export default function DetailPage({ type = 'movie' }) {
         )}
 
         <ReviewSection contentId={id} type={type} title={title} posterPath={item.poster_path} />
+
+        {/* Reseñas de TMDB */}
+        <TmdbReviews type={type} id={id} />
 
         {similar?.data?.results?.length > 0 && (
           <section className={styles.section}>
