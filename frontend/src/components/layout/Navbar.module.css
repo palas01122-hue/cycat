@@ -54,9 +54,8 @@
 
 /* ── Dropdown ────────────────────────────── */
 .dropdown {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0; right: 0;
+  position: fixed;
+  top: var(--nav-height);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
@@ -64,6 +63,7 @@
   z-index: 200;
   overflow: hidden;
   animation: fadeIn 0.15s ease;
+  width: 320px;
 }
 
 @keyframes fadeIn {
@@ -102,15 +102,8 @@
   align-items: center;
   justify-content: center;
 }
-.dropImg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.dropImgPlaceholder {
-  font-size: 18px;
-  color: var(--color-text-muted);
-}
+.dropImg img { width: 100%; height: 100%; object-fit: cover; }
+.dropImgPlaceholder { font-size: 18px; color: var(--color-text-muted); }
 
 .dropInfo {
   flex: 1;
@@ -120,30 +113,17 @@
   min-width: 0;
 }
 .dropTitle {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 13px; font-weight: 600;
   color: var(--color-text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.dropMeta {
-  display: flex;
-  gap: 8px;
-  font-size: 11px;
-  color: var(--color-text-muted);
-}
-.dropType {
-  color: var(--color-accent);
-  font-weight: 600;
-}
+.dropMeta { display: flex; gap: 8px; font-size: 11px; color: var(--color-text-muted); }
+.dropType { color: var(--color-accent); font-weight: 600; }
 
 .dropSeeAll {
-  display: block;
-  width: 100%;
+  display: block; width: 100%;
   padding: 10px 12px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 12px; font-weight: 600;
   color: var(--color-accent);
   text-align: center;
   background: var(--color-accent-dim);
@@ -183,8 +163,7 @@
 .userAvatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
 .userInitial {
   width: 28px; height: 28px; border-radius: 50%;
-  background: var(--color-accent-dim);
-  color: var(--color-accent);
+  background: var(--color-accent-dim); color: var(--color-accent);
   display: flex; align-items: center; justify-content: center;
   font-size: 13px; font-weight: 700;
 }
@@ -198,11 +177,23 @@
 @media (max-width: 768px) {
   .mobileToggle { display: flex; }
   .nav {
-    display: none; position: absolute; top: var(--nav-height); left: 0; right: 0;
-    background: var(--color-bg-card); border-bottom: 1px solid var(--color-border);
+    display: none; position: fixed;
+    top: var(--nav-height); left: 0; right: 0;
+    background: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border);
     flex-direction: column; padding: var(--space-4); gap: var(--space-2);
+    z-index: 99;
   }
   .navOpen { display: flex; }
   .searchWrap { max-width: 140px; }
-  .dropdown { left: 0; right: auto; min-width: 300px; }
+  .dropdown {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    max-height: 60vh;
+    overflow-y: auto;
+  }
 }
