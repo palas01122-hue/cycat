@@ -117,6 +117,28 @@ export default function Navbar() {
           {isAuthenticated && (
             <NavLink to="/diary" className={({ isActive }) => isActive ? styles.activeLink : styles.link}>📅 Diario</NavLink>
           )}
+
+          {/* Mobile Auth Zone */}
+          <div className={styles.mobileAuthZone}>
+            {isAuthenticated ? (
+              <div className={styles.mobileUserMenu}>
+                <Link to="/profile" className={styles.mobileUserBtn} onClick={() => setMenuOpen(false)}>
+                  {user?.avatar ? (
+                    <img src={user.avatar} alt={user.username} className={styles.userAvatar} referrerPolicy="no-referrer" />
+                  ) : (
+                    <span className={styles.userInitial}>{user?.username?.[0]?.toUpperCase()}</span>
+                  )}
+                  <span className={styles.userName}>{user?.username}</span>
+                </Link>
+                <button onClick={() => { logout(); setMenuOpen(false); }} className={styles.logoutBtn}>Salir</button>
+              </div>
+            ) : (
+              <div className={styles.mobileAuthBtns}>
+                <Link to="/login" className={styles.loginBtn} onClick={() => setMenuOpen(false)}>Entrar</Link>
+                <Link to="/register" className={styles.registerBtn} onClick={() => setMenuOpen(false)}>Registrarse</Link>
+              </div>
+            )}
+          </div>
         </nav>
 
         <div className={styles.searchWrap} ref={wrapRef}>

@@ -171,11 +171,22 @@
 .logoutBtn { font-size: 13px; color: var(--color-text-muted); transition: color var(--transition-fast); }
 .logoutBtn:hover { color: var(--color-accent-2); }
 
+.mobileAuthZone { display: none; margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.mobileUserMenu { display: flex; align-items: center; justify-content: space-between; }
+.mobileUserBtn { display: flex; align-items: center; gap: 8px; }
+.mobileAuthBtns { display: flex; flex-direction: column; gap: 10px; }
+.mobileAuthBtns .loginBtn, .mobileAuthBtns .registerBtn { text-align: center; width: 100%; box-sizing: border-box; }
+
 .mobileToggle { display: none; flex-direction: column; gap: 5px; padding: var(--space-2); }
 .mobileToggle span { display: block; width: 22px; height: 2px; background: var(--color-text-primary); border-radius: 2px; }
 
 @media (max-width: 768px) {
+  .inner { justify-content: space-between; gap: 1rem; }
+  .logo { flex-shrink: 1; min-width: 0; }
+  .authZone { display: none; }
   .mobileToggle { display: flex; }
+  .mobileAuthZone { display: block; }
+  
   .nav {
     display: none; position: fixed;
     top: var(--nav-height); left: 0; right: 0;
@@ -185,7 +196,7 @@
     z-index: 99;
   }
   .navOpen { display: flex; }
-  .searchWrap { max-width: 140px; }
+  .searchWrap { flex: 1; max-width: none; margin: 0 10px; }
   .dropdown {
     position: fixed;
     top: var(--nav-height);
