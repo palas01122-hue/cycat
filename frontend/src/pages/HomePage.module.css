@@ -43,16 +43,16 @@
   z-index: 1;
 }
 
-/* Hero layout: 2 columnas bien pegadas */
+/* Hero layout: 2 columnas, gap reducido para acercar panel al título */
 .heroInner {
   position: relative;
   z-index: 3;
   display: grid;
   grid-template-columns: 1fr 360px;
-  gap: var(--space-8);
+  gap: var(--space-6);
   align-items: center;
-  padding-top: var(--space-10);
-  padding-bottom: var(--space-10);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-8);
   width: 100%;
 }
 
@@ -78,12 +78,12 @@
   background: var(--color-accent-dim);
   border: 1px solid rgba(232,149,109,0.25);
   padding: 5px 14px; border-radius: 999px;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .heroTitle {
   font-size: clamp(34px, 4vw, 60px);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
   color: var(--color-text-primary);
   line-height: 1.1;
 }
@@ -96,10 +96,10 @@
 
 .heroSub {
   font-size: 15px; color: var(--color-text-secondary);
-  line-height: 1.7; margin-bottom: var(--space-5);
+  line-height: 1.7; margin-bottom: var(--space-4);
 }
 
-.heroCTA { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-5); }
+.heroCTA { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4); }
 
 .btnPrimary {
   display: inline-flex; align-items: center; gap: var(--space-2);
@@ -306,20 +306,17 @@
 
 /* ── Responsive ───────────────────── */
 @media (max-width: 1024px) {
-  .heroInner { grid-template-columns: 1fr 300px; gap: var(--space-6); }
+  .heroInner { grid-template-columns: 1fr 300px; gap: var(--space-5); }
 }
 
 @media (max-width: 768px) {
   .heroInner {
     grid-template-columns: 1fr;
-    gap: var(--space-6);
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-6);
+    gap: var(--space-4);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
   }
-  .heroRight {
-    /* En mobile el panel se muestra abajo del texto */
-    display: block;
-  }
+  .heroRight { display: block; }
   .heroPanelList { max-height: 260px; }
   .armchairLeft { display: none; }
   .hero { min-height: auto; }

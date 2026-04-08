@@ -161,35 +161,37 @@ export default function DetailPage({ type = 'movie' }) {
 
             <WatchProviders type={type} id={id} />
 
-            {/* Scores externos solo para películas */}
             {type === 'movie' && <ExternalScores movieId={id} />}
 
-            <div className={styles.actionRow}>
-              <FavoriteButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
-              <WatchlistButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
-              {trailer && (
-                <button onClick={() => setShowTrailer(true)} className={styles.trailerBtn}>
-                  ▶ Ver trailer
-                </button>
-              )}
-            </div>
+            {/* Acciones + Calificación en la misma fila */}
+            <div className={styles.actionsAndRating}>
+              <div className={styles.actionRow}>
+                <FavoriteButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
+                <WatchlistButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
+                {trailer && (
+                  <button onClick={() => setShowTrailer(true)} className={styles.trailerBtn}>
+                    ▶ Ver trailer
+                  </button>
+                )}
+              </div>
 
-            <div className={styles.userRatingBlock}>
-              <h3 className={styles.userRatingTitle}>Tu calificación</h3>
-              {isAuthenticated ? (
-                <>
-                  <StarRating value={userRating} onChange={handleRate} />
-                  {ratingSubmitted && (
-                    <span className={styles.ratingOk}>
-                      ✓ Guardado{diaryAdded ? ' en tu diario' : ''}
-                    </span>
-                  )}
-                </>
-              ) : (
-                <p className={styles.ratingPrompt}>
-                  <a href="/login">Iniciá sesión</a> para calificar
-                </p>
-              )}
+              <div className={styles.userRatingBlock}>
+                <h3 className={styles.userRatingTitle}>Tu calificación</h3>
+                {isAuthenticated ? (
+                  <>
+                    <StarRating value={userRating} onChange={handleRate} />
+                    {ratingSubmitted && (
+                      <span className={styles.ratingOk}>
+                        ✓ Guardado{diaryAdded ? ' en tu diario' : ''}
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <p className={styles.ratingPrompt}>
+                    <a href="/login">Iniciá sesión</a> para calificar
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -213,7 +215,6 @@ export default function DetailPage({ type = 'movie' }) {
 
         <ReviewSection contentId={id} type={type} title={title} posterPath={item.poster_path} />
 
-        {/* Reseñas de TMDB */}
         <TmdbReviews type={type} id={id} />
 
         {similar?.data?.results?.length > 0 && (

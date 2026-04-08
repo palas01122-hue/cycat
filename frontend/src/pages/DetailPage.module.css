@@ -1,18 +1,29 @@
-.page { position: relative; }
+.page {
+  position: relative;
+}
 
 /* Backdrop */
 .backdropWrap {
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 600px;
   z-index: 0;
   pointer-events: none;
 }
-.backdrop { width: 100%; height: 100%; object-fit: cover; opacity: 0.22; }
+
+.backdrop {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+}
+
 .backdropOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(15,14,23,0.3) 0%, rgba(15,14,23,1) 85%);
+  background: linear-gradient(to bottom, rgba(15, 14, 23, 0.3) 0%, rgba(15, 14, 23, 1) 85%);
 }
 
 /* Content */
@@ -27,175 +38,370 @@
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: var(--space-10);
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-8);
 }
 
 /* Poster */
 .poster {
   width: 100%;
   border-radius: var(--radius-xl);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
   transition: transform var(--transition-slow);
 }
-.posterSection:hover .poster { transform: scale(1.02); }
+
+.posterSection:hover .poster {
+  transform: scale(1.02);
+}
 
 /* Meta */
-.meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
 .type {
-  font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: #fff;
   background: linear-gradient(135deg, var(--color-accent) 0%, #ff8c42 100%);
-  padding: 3px 10px; border-radius: var(--radius-sm);
-  box-shadow: 0 2px 10px rgba(255,107,53,0.35);
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 10px rgba(255, 107, 53, 0.35);
 }
+
 .genre {
-  font-size: 12px; color: var(--color-text-secondary);
+  font-size: 12px;
+  color: var(--color-text-secondary);
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
-  padding: 3px 12px; border-radius: 999px;
+  padding: 3px 12px;
+  border-radius: 999px;
   transition: border-color var(--transition-fast), color var(--transition-fast);
 }
-.genre:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+.genre:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
 
 .title {
   font-size: clamp(30px, 4vw, 56px);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
   line-height: 1.05;
 }
 
 .subMeta {
-  display: flex; align-items: center; gap: var(--space-2);
-  font-size: 13px; color: var(--color-text-secondary);
-  margin-bottom: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
   font-family: var(--font-mono);
 }
-.dot { color: var(--color-text-muted); }
+
+.dot {
+  color: var(--color-text-muted);
+}
+
 .lang {
   background: var(--color-purple-dim);
   color: var(--color-purple);
-  padding: 1px 7px; border-radius: var(--radius-sm);
-  font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  padding: 1px 7px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 /* Rating block */
 .ratingBlock {
-  display: flex; align-items: center; gap: var(--space-4);
-  margin-bottom: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
 }
+
 .tmdbRating {
-  display: flex; flex-direction: column; align-items: center;
-  background: linear-gradient(135deg, rgba(255,209,102,0.12) 0%, rgba(255,209,102,0.06) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.12) 0%, rgba(255, 209, 102, 0.06) 100%);
   border: 2px solid var(--color-gold);
   border-radius: var(--radius-lg);
   padding: var(--space-3) var(--space-5);
   min-width: 72px;
-  box-shadow: 0 4px 20px rgba(255,209,102,0.15);
+  box-shadow: 0 4px 20px rgba(255, 209, 102, 0.15);
 }
+
 .ratingScore {
-  font-family: var(--font-display); font-size: 32px; font-weight: 900;
-  color: var(--color-gold); line-height: 1;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--color-gold);
+  line-height: 1;
 }
+
 .ratingLabel {
-  font-size: 9px; font-weight: 800; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--color-text-muted); margin-top: 2px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 2px;
 }
-.voteCount { font-size: 12px; color: var(--color-text-muted); font-family: var(--font-mono); }
+
+.voteCount {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
 
 /* Overview */
 .overview {
-  font-size: 15px; line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.8;
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
   max-width: 580px;
 }
 
 /* Crew */
-.crew { display: flex; gap: var(--space-3); align-items: baseline; margin-bottom: var(--space-6); }
-.crewLabel {
-  font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--color-text-muted); flex-shrink: 0;
+.crew {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  margin-bottom: var(--space-4);
 }
-.crewNames { font-size: 14px; color: var(--color-text-primary); font-weight: 500; }
 
-/* User rating */
+.crewLabel {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.crewNames {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* ── Fila acciones + calificación ── */
+.actionsAndRating {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  flex: 1;
+}
+
+/* User rating — ahora inline con los botones */
 .userRatingBlock {
   background: linear-gradient(135deg, var(--color-bg-elevated) 0%, var(--color-bg-card) 100%);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: var(--space-5) var(--space-6);
-  margin-bottom: var(--space-5);
-  display: inline-block;
+  padding: var(--space-3) var(--space-5);
   transition: border-color var(--transition-fast);
+  flex-shrink: 0;
 }
-.userRatingBlock:hover { border-color: var(--color-border-hover); }
+
+.userRatingBlock:hover {
+  border-color: var(--color-border-hover);
+}
+
 .userRatingTitle {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-3);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
 }
-.ratingOk { display: block; margin-top: var(--space-2); font-size: 13px; color: var(--color-accent-3); font-weight: 600; }
-.ratingPrompt { font-size: 13px; color: var(--color-text-muted); }
-.ratingPrompt a { color: var(--color-accent); font-weight: 600; }
+
+.ratingOk {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: 12px;
+  color: var(--color-accent-3);
+  font-weight: 600;
+}
+
+.ratingPrompt {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.ratingPrompt a {
+  color: var(--color-accent);
+  font-weight: 600;
+}
 
 /* Trailer */
 .trailerBtn {
-  display: inline-flex; align-items: center; gap: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   padding: 10px 22px;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--color-border-hover);
   border-radius: var(--radius-lg);
-  font-size: 14px; font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
   transition: all var(--transition-fast);
 }
+
 .trailerBtn:hover {
-  background: rgba(255,107,53,0.1);
+  background: rgba(255, 107, 53, 0.1);
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
 
 /* Sections */
-.section { margin-bottom: var(--space-10); }
+.section {
+  margin-bottom: var(--space-8);
+}
+
 .sectionTitle {
-  font-family: var(--font-display); font-size: 24px; font-weight: 700;
-  margin-bottom: var(--space-6); letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: var(--space-5);
+  letter-spacing: -0.01em;
 }
 
 /* Cast */
-.castGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: var(--space-4); }
-.castCard { display: flex; flex-direction: column; gap: var(--space-2); }
+.castGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+  gap: var(--space-3);
+}
+
+.castCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
 .castPhoto {
-  width: 100%; aspect-ratio: 2/3; object-fit: cover;
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
   border-radius: var(--radius-lg);
   background: var(--color-bg-elevated);
   transition: transform var(--transition-normal);
 }
-.castCard:hover .castPhoto { transform: scale(1.03); }
-.castInfo { display: flex; flex-direction: column; gap: 1px; }
-.castName { font-size: 12px; font-weight: 600; color: var(--color-text-primary); line-height: 1.3; }
-.castRole { font-size: 11px; color: var(--color-text-muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 
-/* States */
-.error { padding-top: var(--space-16); text-align: center; color: var(--color-text-muted); }
-.skeleton { padding-top: var(--space-8); }
-.skBackdrop { height: 300px; margin-bottom: var(--space-8); }
-.skContent { display: grid; grid-template-columns: 280px 1fr; gap: var(--space-10); }
-.skPoster { aspect-ratio: 2/3; }
-.skInfo { display: flex; flex-direction: column; gap: var(--space-4); padding-top: var(--space-4); }
-.skTitle { height: 48px; width: 65%; }
-.skLine  { height: 16px; width: 90%; }
-.skBlock { height: 100px; margin-top: var(--space-4); }
-
-@media (max-width: 768px) {
-  .main { grid-template-columns: 1fr; }
-  .posterSection { max-width: 200px; }
-  .castGrid { grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); }
-  .skContent { grid-template-columns: 1fr; }
+.castCard:hover .castPhoto {
+  transform: scale(1.03);
 }
 
-/* Action row */
-.actionRow {
+.castInfo {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-bottom: var(--space-5);
+  flex-direction: column;
+  gap: 1px;
+}
+
+.castName {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.castRole {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* States */
+.error {
+  padding-top: var(--space-16);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.skeleton {
+  padding-top: var(--space-8);
+}
+
+.skBackdrop {
+  height: 300px;
+  margin-bottom: var(--space-8);
+}
+
+.skContent {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-10);
+}
+
+.skPoster {
+  aspect-ratio: 2/3;
+}
+
+.skInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+}
+
+.skTitle {
+  height: 48px;
+  width: 65%;
+}
+
+.skLine {
+  height: 16px;
+  width: 90%;
+}
+
+.skBlock {
+  height: 100px;
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .posterSection {
+    max-width: 200px;
+  }
+
+  .castGrid {
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+  }
+
+  .skContent {
+    grid-template-columns: 1fr;
+  }
+
+  .actionsAndRating {
+    flex-direction: column;
+  }
+
+  .userRatingBlock {
+    width: 100%;
+  }
 }
