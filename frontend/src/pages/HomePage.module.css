@@ -61,12 +61,13 @@
 
 .armchairLeft {
   position: absolute;
-  left: -140px;
-  bottom: -20px;
-  width: 180px;
-  opacity: 1;
+  right: -90px;
+  bottom: 30px;
+  width: 140px;
+  opacity: 0.9;
   animation: float 6s ease-in-out infinite;
   pointer-events: none;
+  z-index: 0;
 }
 
 .heroEyebrow {
