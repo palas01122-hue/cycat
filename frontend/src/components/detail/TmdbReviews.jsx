@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useFetch } from '../../hooks/useFetch'
 import { detailAPI } from '../../services/api'
 import styles from './TmdbReviews.module.css'
@@ -24,9 +24,24 @@ function StarBar({ rating }) {
     )
 }
 
-function ReviewCard({ review }) {
+function ReviewCard({ review, autoTranslate }) {
     const [expanded, setExpanded] = useState(false)
-    const content = review.content || ''
+    const [translatedContent, setTranslatedContent] = useState(null)
+
+    useEffect(() => {
+        if (autoTranslate && !translatedContent && review.content) {
+            // Utilizamos el truco de la API gratuita de Google Translate
+            fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=es&dt=t&q=${encodeURIComponent(review.content.slice(0, 4500))}`)
+                .then(res => res.json())
+                .then(data => {
+                    const translated = data[0].map(item => item[0]).join('')
+                    setTranslatedContent(translated)
+                })
+                .catch(err => console.error("Error translating", err))
+        }
+    }, [autoTranslate, review.content, translatedContent])
+
+    const content = translatedContent || review.content || ''
     const isLong = content.length > 300
     const displayed = expanded || !isLong ? content : content.slice(0, 300) + '...'
 
@@ -58,6 +73,7 @@ function ReviewCard({ review }) {
 
 export default function TmdbReviews({ type, id }) {
     const { data, loading } = useFetch(() => detailAPI.getReviews(type, id), [id, type])
+    const [autoTranslate, setAutoTranslate] = useState(false)
 
     if (loading) return null
     const reviews = data?.data?.results || []
@@ -65,14 +81,21 @@ export default function TmdbReviews({ type, id }) {
 
     return (
         <section className={styles.wrap}>
-            <h2 className={styles.title}>
-                Reseñas de la comunidad
-                <span className={styles.badge}>{reviews.length}</span>
-            </h2>
-            <p className={styles.source}>Fuente: TMDB · En idioma original</p>
+            <div className={styles.headerRow}>
+                <h2 className={styles.title}>
+                    Reseñas de TMDB
+                    <span className={styles.badge}>{reviews.length}</span>
+                </h2>
+                {!autoTranslate && (
+                    <button className={styles.translateBtn} onClick={() => setAutoTranslate(true)}>
+                        🌎 Traducir al Español
+                    </button>
+                )}
+            </div>
+            <p className={styles.source}>Fuente: TMDB · {autoTranslate ? 'Traducido automáticamente' : 'En idioma original'}</p>
             <div className={styles.list}>
                 {reviews.slice(0, 5).map(r => (
-                    <ReviewCard key={r.id} review={r} />
+                    <ReviewCard key={r.id} review={r} autoTranslate={autoTranslate} />
                 ))}
             </div>
         </section>
