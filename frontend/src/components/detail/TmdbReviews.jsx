@@ -30,12 +30,20 @@ function ReviewCard({ review, autoTranslate }) {
 
     useEffect(() => {
         if (autoTranslate && !translatedContent && review.content) {
-            // Utilizamos el truco de la API gratuita de Google Translate
-            fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=es&dt=t&q=${encodeURIComponent(review.content.slice(0, 4500))}`)
+            // Send POST request instead of GET to avoid 414 URI Too Long errors
+            fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=es&dt=t`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `q=${encodeURIComponent(review.content)}`
+            })
                 .then(res => res.json())
                 .then(data => {
-                    const translated = data[0].map(item => item[0]).join('')
-                    setTranslatedContent(translated)
+                    if (data && data[0]) {
+                        const translated = data[0].map(item => item[0]).join('')
+                        setTranslatedContent(translated)
+                    }
                 })
                 .catch(err => console.error("Error translating", err))
         }
