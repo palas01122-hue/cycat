@@ -46,9 +46,9 @@
   position: relative;
   z-index: 3;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
   padding-top: 3.5rem;
   padding-bottom: 4.5rem;
   width: 100%;
