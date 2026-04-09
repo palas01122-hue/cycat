@@ -48,22 +48,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
-  padding-top: 2rem;
-  padding-bottom: 3rem;
+  gap: 5rem;
+  padding-top: 4rem;
+  padding-bottom: 5rem;
   width: 100%;
 }
 
 .heroLeft {
   position: relative;
-  flex: 0 1 550px;
+  flex: 0 1 520px;
 }
 
 .armchairLeft {
   position: absolute;
-  right: -90px;
-  bottom: 30px;
-  width: 140px;
+  left: -220px;
+  bottom: -40px;
+  width: 220px;
   opacity: 0.9;
   animation: float 6s ease-in-out infinite;
   pointer-events: none;
@@ -117,32 +117,35 @@
 .btnSecondary {
   display: inline-flex; align-items: center;
   padding: 11px 24px;
-  border: 1px solid var(--color-border-hover);
-  color: var(--color-text-secondary); font-weight: 500; font-size: 14px;
+  border: 1px solid rgba(196, 168, 212, 0.4);
+  background: rgba(196, 168, 212, 0.15);
+  color: var(--color-text-primary); font-weight: 700; font-size: 14px;
   border-radius: var(--radius-lg);
-  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(8px);
 }
-.btnSecondary:hover { border-color: var(--color-purple); color: var(--color-purple); background: var(--color-purple-dim); }
+.btnSecondary:hover { border-color: rgba(196, 168, 212, 0.8); background: rgba(196, 168, 212, 0.3); transform: translateY(-2px); }
 
 .heroQuickLinks {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 .quickLink {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 12px;
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
+  padding: 8px 16px;
+  background: rgba(232, 149, 109, 0.15);
+  border: 1px solid rgba(232, 149, 109, 0.4);
   border-radius: 999px;
-  font-size: 11px; font-weight: 600;
-  color: var(--color-text-secondary);
+  font-size: 12px; font-weight: 700;
+  color: var(--color-text-primary);
   transition: all var(--transition-fast);
 }
 .quickLink:hover {
   border-color: var(--color-accent);
-  color: var(--color-accent);
   background: var(--color-accent-dim);
+  transform: translateY(-2px);
 }
 
 /* ── Hero Panel ──────────── */
