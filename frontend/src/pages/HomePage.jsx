@@ -133,7 +133,7 @@ export default function HomePage() {
         <div className={`container ${styles.heroInner}`}>
           {/* Lado izquierdo */}
           <div className={styles.heroLeft}>
-            <div className={styles.armchairLeft} aria-hidden="true"><CinemaArmchair /></div>
+            <div className={styles.armchairLeft} aria-hidden="true"><img src="/armchair.png" alt="" /></div>
             <span className={styles.heroEyebrow}>🍿 Descubrí cine y series</span>
             <h1 className={`heading-display ${styles.heroTitle}`}>
               Tu catálogo<br />
@@ -228,27 +228,6 @@ export default function HomePage() {
   )
 }
 
-function CinemaArmchair() {
-  return (
-    <svg viewBox="0 0 130 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="22" y="118" width="10" height="32" rx="5" fill="#4a2f1a" />
-      <rect x="98" y="118" width="10" height="32" rx="5" fill="#4a2f1a" />
-      <rect x="8" y="65" width="114" height="58" rx="16" fill="#b85c5c" />
-      <rect x="14" y="10" width="102" height="62" rx="14" fill="#cc6e6e" />
-      <rect x="24" y="17" width="40" height="9" rx="5" fill="#e08888" opacity="0.3" />
-      <rect x="0" y="42" width="22" height="60" rx="11" fill="#b85c5c" />
-      <rect x="108" y="42" width="22" height="60" rx="11" fill="#b85c5c" />
-      <rect x="106" y="22" width="26" height="30" rx="6" fill="#e8c97a" />
-      <ellipse cx="119" cy="22" rx="13" ry="8" fill="#f5ede0" />
-      <circle cx="110" cy="16" r="8" fill="#f5ede0" />
-      <circle cx="119" cy="11" r="9" fill="#f5ede0" />
-      <circle cx="129" cy="14" r="8" fill="#f5ede0" />
-      <circle cx="112" cy="6" r="7" fill="#ede3ce" />
-      <circle cx="123" cy="4" r="8" fill="#ede3ce" />
-      <circle cx="118" cy="-2" r="6" fill="#f5ede0" />
-    </svg>
-  )
-}
 
 function FilmStrip() {
   const holes = Array.from({ length: 22 }, (_, i) => i)

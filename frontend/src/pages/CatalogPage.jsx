@@ -57,7 +57,25 @@ export default function CatalogPage({ type = 'movie' }) {
             >
               Todos
             </button>
-            {genreData.genres.slice(0, 12).map(g => (
+            {type === 'tv' && (
+              <>
+                <button
+                  className={activeGenre === 'miniseries' ? styles.activeGenre : styles.genreBtn}
+                  onClick={() => setActiveGenre('miniseries')}
+                  title="Historias cerradas en una sola temporada"
+                >
+                  ⏱️ Miniseries
+                </button>
+                <button
+                  className={activeGenre === 'marathon' ? styles.activeGenre : styles.genreBtn}
+                  onClick={() => setActiveGenre('marathon')}
+                  title="Perfectas para un fin de semana"
+                >
+                  🍿 Para Maratonear
+                </button>
+              </>
+            )}
+            {genreData.genres.slice(0, 10).map(g => (
               <button
                 key={g.id}
                 className={activeGenre === g.id ? styles.activeGenre : styles.genreBtn}

@@ -46,15 +46,16 @@
 
 /* ── Card con borde dorado distintivo ── */
 .card {
-  background: var(--color-bg-card);
-  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(212, 175, 55, 0.1) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-top: 3px solid transparent;
-  border-image: linear-gradient(90deg, #c8971a, #f0d060, #c8971a) 1;
+  border-image: linear-gradient(90deg, #c8971a, #ffd700, #c8971a) 1;
   border-radius: var(--radius-xl);
   padding: var(--space-5);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  transition: all var(--transition-fast);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(200, 151, 26, 0.1);
 }
 
 /* Línea dorada superior como acento */

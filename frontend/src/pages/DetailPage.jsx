@@ -25,6 +25,7 @@ export default function DetailPage({ type = 'movie' }) {
   const [ratingSubmitted, setRatingSubmitted] = useState(false)
   const [showTrailer, setShowTrailer] = useState(false)
   const [diaryAdded, setDiaryAdded] = useState(false)
+  const [seasonSearch, setSeasonSearch] = useState('')
 
   const fetchFn = type === 'movie' ? () => detailAPI.getMovie(id) : () => detailAPI.getSeries(id)
   const { data, loading, error } = useFetch(fetchFn, [id, type])
@@ -209,6 +210,33 @@ export default function DetailPage({ type = 'movie' }) {
                   </div>
                 </Link>
               ))}
+            </div>
+          </section>
+        )}
+
+        {type === 'tv' && item.seasons && item.seasons.length > 0 && (
+          <section className={styles.section}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '16px' }}>
+              <h2 className={styles.sectionTitle} style={{ marginBottom: 0 }}>Temporadas y Capítulos</h2>
+              <input 
+                type="text" 
+                placeholder="Buscar temporada o capítulo..." 
+                value={seasonSearch}
+                onChange={(e) => setSeasonSearch(e.target.value)}
+                style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'var(--color-bg-elevated)', color: 'var(--color-text-primary)' }}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' }}>
+              {item.seasons.filter(s => s.name?.toLowerCase().includes(seasonSearch.toLowerCase())).map(s => (
+                <div key={s.id} style={{ minWidth: '140px', background: 'var(--color-bg-card)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(212, 175, 55, 0.3)' }}>
+                  <div style={{ fontWeight: 'bold', color: 'var(--color-text-primary)', marginBottom: '4px' }}>{s.name}</div>
+                  <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>{s.episode_count} capítulos</div>
+                  {s.air_date && <div style={{ fontSize: '11px', color: 'var(--color-text-muted)', marginTop: '4px' }}>{s.air_date.slice(0, 4)}</div>}
+                </div>
+              ))}
+              {item.seasons.filter(s => s.name?.toLowerCase().includes(seasonSearch.toLowerCase())).length === 0 && (
+                <div style={{ color: 'var(--color-text-muted)', fontSize: '13px' }}>No se encontraron temporadas con ese nombre.</div>
+              )}
             </div>
           </section>
         )}
