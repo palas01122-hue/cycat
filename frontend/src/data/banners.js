@@ -8,7 +8,7 @@ export const BANNERS = [
     linkText: 'Ver ficha',
   },
   {
-    image: '/*https://image.tmdb.org/t/p/original/lXCbKGxn0bHuhSJB0CQHL5GFHmy.jpg*/',
+    image: 'https://m.media-amazon.com/images/M/MV5BM2ZiZjI4YzUtMjVmYy00MWM1LTg4NTctYTAyOGU4Y2NjYmE2XkEyXkFqcGdeQWFkcmllY2xh._V1_.jpg',
     label: '🎬 En cartelera',
     title: 'El Drama',
     subtitle: 'Zendaya y Robert Pattinson. Una boda, un secreto, todo fuera de control.',
@@ -16,7 +16,7 @@ export const BANNERS = [
     linkText: 'Ver ficha',
   },
   {
-    image: '/*https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg*/',
+    image: 'https://media.cnn.com/api/v1/images/stellar/prod/project-hail-mary-2026.jpg?c=16x9&q=h_833,w_1480,c_fill',
     label: '🚀 Estreno del año',
     title: 'Project Hail Mary',
     subtitle: 'Ryan Gosling en el espacio. Solo, sin memoria, con la misión de salvar la Tierra.',
