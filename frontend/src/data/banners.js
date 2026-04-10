@@ -2,43 +2,33 @@
 //  CARRUSEL DEL HOME — editá este archivo para
 //  cambiar los banners que aparecen en el inicio
 // ══════════════════════════════════════════════
-//
-// Cada banner tiene:
-//   image   → URL de la imagen (podés usar cualquier URL externa o /images/nombre.jpg si subís al proyecto)
-//   title   → Título grande
-//   subtitle→ Texto chico debajo del título (opcional, podés dejarlo vacío "")
-//   label   → Etiqueta pequeña arriba del título (opcional)
-//   link    → A dónde va cuando hacen click (ruta interna o URL)
-//   linkText→ Texto del botón
-//
-// ¡Podés agregar, quitar o reordenar banners como quieras!
 
 export const BANNERS = [
   {
-    image: 'https://image.tmdb.org/t/p/original/xJHokMbljvjADYdit5fK5VQsXEG.jpg',
-    label: '🔥 Estreno de la semana',
-    title: 'Avatar: Fuego y ceniza',
-    subtitle: 'La saga continúa. Disponible para calificar en CyCat.',
-    link: '/movie/83533',
-    linkText: 'Ver ficha',
-  },
-  {
     image: 'https://image.tmdb.org/t/p/original/qdIMHd4sEfJSckfVJfKQvisL02a.jpg',
-    label: '🏆 Top valorada',
-    title: 'The Boys — Temporada 4',
-    subtitle: 'La serie más disruptiva de Amazon Prime.',
+    label: '📺 Última temporada',
+    title: 'The Boys',
+    subtitle: 'La serie más disruptiva llega a su fin. ¿Podrán los Boys detener a Homelander?',
     link: '/tv/76479',
     linkText: 'Ver ficha',
   },
   {
-    image: 'https://image.tmdb.org/t/p/original/tmU7GeKVPlSoOL3gR69kFRUvHKH.jpg',
-    label: '📺 Serie destacada',
-    title: 'Adolescence',
-    subtitle: 'El fenómeno de Netflix que todos están viendo.',
-    link: '/tv/262252',
+    image: 'https://image.tmdb.org/t/p/original/lXCbKGxn0bHuhSJB0CQHL5GFHmy.jpg',
+    label: '🎬 En cartelera',
+    title: 'El Drama',
+    subtitle: 'Zendaya y Robert Pattinson. Una boda, un secreto, todo fuera de control.',
+    link: '/movie/1325734',
+    linkText: 'Ver ficha',
+  },
+  {
+    image: 'https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg',
+    label: '🚀 Estreno del año',
+    title: 'Project Hail Mary',
+    subtitle: 'Ryan Gosling en el espacio. Solo, sin memoria, con la misión de salvar la Tierra.',
+    link: '/movie/687163',
     linkText: 'Ver ficha',
   },
 ]
 
-// Tiempo entre slides (en milisegundos). 5000 = 5 segundos
+// Tiempo entre slides en milisegundos
 export const AUTOPLAY_INTERVAL = 5000
