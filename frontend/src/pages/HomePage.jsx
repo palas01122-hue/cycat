@@ -8,7 +8,71 @@ import StreamingSection from '../components/catalog/StreamingSection'
 import { BANNERS, AUTOPLAY_INTERVAL } from '../data/banners'
 import styles from './HomePage.module.css'
 
-// ── Carrusel ──────────────────────────────────
+const POSTER_BASE = 'https://image.tmdb.org/t/p/w185'
+
+const HERO_TABS = [
+  { key: 'trending', label: '🔥 Tendencias' },
+  { key: 'topMovies', label: '🏆 Top Películas' },
+  { key: 'topSeries', label: '📺 Top Series' },
+]
+
+// ── Panel rankings (derecha) ──────────────────
+function HeroPanel() {
+  const [tab, setTab] = useState('trending')
+  const { data: trending } = useFetch(() => catalogAPI.getTrending('all', 'week'), [])
+  const { data: topMovies } = useFetch(() => catalogAPI.getTopRated('movie'), [])
+  const { data: topSeries } = useFetch(() => catalogAPI.getTopRated('tv'), [])
+
+  const items = {
+    trending: (trending?.results || []).slice(0, 10),
+    topMovies: (topMovies?.results || []).slice(0, 10),
+    topSeries: (topSeries?.results || []).slice(0, 10),
+  }[tab] || []
+
+  const getLink = (item) => {
+    const type = item.media_type || (tab === 'topMovies' ? 'movie' : 'tv')
+    return `/${type}/${item.id}`
+  }
+
+  return (
+    <div className={styles.heroPanel}>
+      <div className={styles.heroPanelTabs}>
+        {HERO_TABS.map(t => (
+          <button
+            key={t.key}
+            className={tab === t.key ? styles.heroPanelTabActive : styles.heroPanelTab}
+            onClick={() => setTab(t.key)}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <div className={styles.heroPanelList}>
+        {items.map((item, i) => (
+          <Link key={item.id} to={getLink(item)} className={styles.heroPanelItem}>
+            <span className={styles.heroPanelRank}>{i + 1}</span>
+            <img
+              src={`${POSTER_BASE}${item.poster_path}`}
+              alt={item.title || item.name}
+              className={styles.heroPanelPoster}
+              loading="lazy"
+            />
+            <div className={styles.heroPanelInfo}>
+              <span className={styles.heroPanelTitle}>{item.title || item.name}</span>
+              <span className={styles.heroPanelMeta}>
+                {(item.release_date || item.first_air_date || '').slice(0, 4)}
+                {item.vote_average > 0 && ` · ⭐ ${item.vote_average.toFixed(1)}`}
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <Link to="/rankings" className={styles.heroPanelMore}>Ver ranking completo →</Link>
+    </div>
+  )
+}
+
+// ── Carrusel (izquierda) ──────────────────────
 function HeroCarousel() {
   const [current, setCurrent] = useState(0)
   const [paused, setPaused] = useState(false)
@@ -30,7 +94,6 @@ function HeroCarousel() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Imagen de fondo */}
       {BANNERS.map((b, i) => (
         <div
           key={i}
@@ -40,22 +103,18 @@ function HeroCarousel() {
         />
       ))}
 
-      {/* Overlay oscuro */}
       <div className={styles.carouselOverlay} />
 
-      {/* Contenido */}
-      <div className={`container ${styles.carouselContent}`}>
+      <div className={styles.carouselContent}>
         {banner.label && <span className={styles.carouselLabel}>{banner.label}</span>}
-        <h1 className={styles.carouselTitle}>{banner.title}</h1>
+        <h2 className={styles.carouselTitle}>{banner.title}</h2>
         {banner.subtitle && <p className={styles.carouselSub}>{banner.subtitle}</p>}
         <Link to={banner.link} className={styles.carouselBtn}>{banner.linkText} →</Link>
       </div>
 
-      {/* Controles */}
       <button className={`${styles.carouselArrow} ${styles.carouselArrowLeft}`} onClick={prev} aria-label="Anterior">‹</button>
       <button className={`${styles.carouselArrow} ${styles.carouselArrowRight}`} onClick={next} aria-label="Siguiente">›</button>
 
-      {/* Dots */}
       <div className={styles.carouselDots}>
         {BANNERS.map((_, i) => (
           <button
@@ -94,8 +153,17 @@ export default function HomePage() {
         <meta name="twitter:image" content="https://cycat.lat/og-default.jpg" />
       </Helmet>
 
-      {/* ── Carrusel hero ── */}
-      <HeroCarousel />
+      {/* ── Hero: carrusel izquierda + rankings derecha ── */}
+      <section className={styles.hero}>
+        <div className={`container ${styles.heroInner}`}>
+          <div className={styles.heroLeft}>
+            <HeroCarousel />
+          </div>
+          <div className={styles.heroRight}>
+            <HeroPanel />
+          </div>
+        </div>
+      </section>
 
       {/* Stats */}
       <div className={styles.statsBar}>
