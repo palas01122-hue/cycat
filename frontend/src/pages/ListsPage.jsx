@@ -5,6 +5,8 @@ import { listsAPI } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
 import { getPosterUrl } from '../utils/tmdb'
 import styles from './ListsPage.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
+import { List, Plus, X, Globe, Lock } from 'lucide-react'
 
 export default function ListsPage() {
   const { isAuthenticated } = useAuth()
@@ -40,15 +42,15 @@ export default function ListsPage() {
   }
 
   return (
-    <div className={`container page-enter ${styles.page}`}>
+    <motion.div className={`container ${styles.page}`} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div className={styles.header}>
         <div>
-          <h1 className="heading-lg">📋 Listas</h1>
+          <h1 className="heading-lg">Listas</h1>
           <p className={styles.sub}>Listas temáticas creadas por la comunidad</p>
         </div>
         {isAuthenticated && (
           <button className={styles.createBtn} onClick={() => setCreate(true)}>
-            + Nueva lista
+            <><Plus size={14} /> Nueva lista</>
           </button>
         )}
       </div>
@@ -80,8 +82,8 @@ export default function ListsPage() {
 
       {/* Tabs */}
       <div className={styles.tabs}>
-        <button className={tab === 'public' ? styles.activeTab : styles.tab} onClick={() => setTab('public')}>🌍 Públicas</button>
-        {isAuthenticated && <button className={tab === 'mine' ? styles.activeTab : styles.tab} onClick={() => setTab('mine')}>👤 Mis listas</button>}
+        <button className={tab === 'public' ? styles.activeTab : styles.tab} onClick={() => setTab('public')}><><Globe size={13} /> Públicas</></button>
+        {isAuthenticated && <button className={tab === 'mine' ? styles.activeTab : styles.tab} onClick={() => setTab('mine')}><><List size={13} /> Mis listas</></button>}
       </div>
 
       {/* Lista de listas */}
@@ -91,7 +93,7 @@ export default function ListsPage() {
       {tab === 'mine' && (
         <ListGrid lists={mineLists} loading={lm} mine onRefresh={() => setRefresh(r => r + 1)} />
       )}
-    </div>
+    </motion.div>
   )
 }
 
@@ -140,7 +142,7 @@ function ListCard({ list, mine, onRefresh }) {
         </div>
       </Link>
       {mine && (
-        <button onClick={handleDelete} className={styles.deleteBtn} title="Eliminar lista">✕</button>
+        <button onClick={handleDelete} className={styles.deleteBtn} title="Eliminar lista"><X size={14} /></button>
       )}
     </div>
   )

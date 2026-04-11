@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import CyCatLogo from '../ui/CyCatLogo'
 import styles from './Footer.module.css'
+import { ExternalLink, Share2, Link2, Heart } from 'lucide-react'
 
 export default function Footer() {
   return (

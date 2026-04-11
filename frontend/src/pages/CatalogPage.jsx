@@ -3,6 +3,8 @@ import { usePaginatedFetch, useFetch } from '../hooks/useFetch'
 import { catalogAPI } from '../services/api'
 import MediaGrid from '../components/catalog/MediaGrid'
 import styles from './CatalogPage.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Film, Tv, SlidersHorizontal } from 'lucide-react'
 
 export default function CatalogPage({ type = 'movie' }) {
   const [activeGenre, setActiveGenre] = useState(null)
@@ -26,7 +28,7 @@ export default function CatalogPage({ type = 'movie' }) {
   const typeLabel = type === 'movie' ? 'Películas' : 'Series'
 
   return (
-    <div className={`container page-enter ${styles.page}`}>
+    <motion.div className={`container ${styles.page}`} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <header className={styles.header}>
         <h1 className="heading-lg">{typeLabel}</h1>
 
@@ -102,6 +104,6 @@ export default function CatalogPage({ type = 'movie' }) {
           </button>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }

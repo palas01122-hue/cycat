@@ -110,3 +110,6 @@
 @media (max-width: 600px) {
   .header { flex-direction: column; align-items: flex-start; }
 }
+
+/* Lucide icon alignment */
+.modeBtn, .modeActive { display: flex; align-items: center; gap: 5px; }

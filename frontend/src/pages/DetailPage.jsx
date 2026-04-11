@@ -17,6 +17,8 @@ import ExternalScores from '../components/detail/ExternalScores'
 import TmdbReviews from '../components/detail/TmdbReviews'
 import MediaGrid from '../components/catalog/MediaGrid'
 import styles from './DetailPage.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Play, Check } from 'lucide-react'
 
 export default function DetailPage({ type = 'movie' }) {
   const { id } = useParams()
@@ -72,7 +74,7 @@ export default function DetailPage({ type = 'movie' }) {
   }
 
   return (
-    <div className={`page-enter ${styles.page}`} data-testid="detail-page">
+    <motion.div className={styles.page} data-testid="detail-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45 }}>
       <Helmet>
         <title>{`${title} (${year}) — CyCat`}</title>
         <meta name="description" content={description} />
@@ -115,15 +117,15 @@ export default function DetailPage({ type = 'movie' }) {
 
       <div className={`container ${styles.content}`}>
         <div className={styles.main}>
-          <div className={styles.posterSection}>
+          <motion.div className={styles.posterSection} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <img src={getPosterUrl(item.poster_path, 'lg')} alt={`Poster de ${title}`} className={styles.poster} />
-          </div>
+          </motion.div>
 
           <div className={styles.infoSection}>
-            <div className={styles.meta}>
+            <motion.div className={styles.meta} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <span className={styles.type}>{typeLabel}</span>
               {item.genres?.map(g => <span key={g.id} className={styles.genre}>{g.name}</span>)}
-            </div>
+            </motion.div>
 
             <h1 className={`heading-display ${styles.title}`}>{title}</h1>
 
@@ -171,7 +173,7 @@ export default function DetailPage({ type = 'movie' }) {
                 <WatchlistButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
                 {trailer && (
                   <button onClick={() => setShowTrailer(true)} className={styles.trailerBtn}>
-                    ▶ Ver trailer
+                    <><Play size={14} /> Ver trailer</>
                   </button>
                 )}
               </div>
@@ -183,7 +185,7 @@ export default function DetailPage({ type = 'movie' }) {
                     <StarRating value={userRating} onChange={handleRate} />
                     {ratingSubmitted && (
                       <span className={styles.ratingOk}>
-                        ✓ Guardado{diaryAdded ? ' en tu diario' : ''}
+                        <Check size={13} /> Guardado{diaryAdded ? ' en tu diario' : ''}
                       </span>
                     )}
                   </>
@@ -256,7 +258,7 @@ export default function DetailPage({ type = 'movie' }) {
       {showTrailer && trailer && (
         <TrailerModal videoKey={trailer.key} title={`${title} — Trailer`} onClose={() => setShowTrailer(false)} />
       )}
-    </div>
+    </motion.div>
   )
 }
 

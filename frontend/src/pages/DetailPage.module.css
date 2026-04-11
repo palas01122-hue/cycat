@@ -209,3 +209,6 @@
   .actionsAndRating { flex-direction: column; }
   .userRatingBlock { width: 100%; }
 }
+
+/* Lucide icon alignment extras */
+.ratingOk { display: inline-flex; align-items: center; gap: 5px; }

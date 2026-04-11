@@ -112,3 +112,9 @@
 @media (max-width: 600px) {
   .controls { padding: var(--space-4); }
 }
+
+/* Nuevos estilos con Framer Motion + Lucide */
+.headerTitle { display: flex; align-items: center; gap: var(--space-3); }
+.headerIcon { color: var(--color-gold); }
+.toggleBtns button { display: flex; align-items: center; gap: 5px; }
+.rankRating { display: flex; align-items: center; gap: 4px; }

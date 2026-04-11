@@ -25,3 +25,9 @@
 .searchBtn:hover { opacity: 0.9; transform: translateY(-1px); }
 .error { color: var(--color-accent-2); font-size: 14px; margin-bottom: var(--space-4); }
 .empty { text-align: center; padding: var(--space-16); color: var(--color-text-muted); font-size: 15px; }
+.headerTop { display: flex; align-items: center; gap: var(--space-3); }
+.headerIcon { color: var(--color-accent); }
+.filterBtn, .activeFilter { display: flex; align-items: center; gap: 5px; }
+.advancedToggle { display: flex; align-items: center; gap: 5px; }
+.searchBtn { display: flex; align-items: center; gap: 6px; }
+.typeBtns button { display: flex; align-items: center; gap: 5px; }
