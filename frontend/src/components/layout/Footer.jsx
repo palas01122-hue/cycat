@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import CyCatLogo from '../ui/CyCatLogo'
 import styles from './Footer.module.css'
-import { ExternalLink, Share2, Link2, Heart } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -24,6 +23,15 @@ export default function Footer() {
             <Link to="/rankings">Rankings</Link>
             <Link to="/streaming">Plataformas</Link>
             <Link to="/what-to-watch">¿Qué veo hoy?</Link>
+          </div>
+          <div className={styles.col}>
+            <h4>Géneros</h4>
+            <Link to="/genre/movie/accion">Películas de Acción</Link>
+            <Link to="/genre/movie/comedia">Películas de Comedia</Link>
+            <Link to="/genre/movie/drama">Películas de Drama</Link>
+            <Link to="/genre/movie/terror">Películas de Terror</Link>
+            <Link to="/genre/movie/ciencia-ficcion">Ciencia Ficción</Link>
+            <Link to="/genre/tv/drama">Series de Drama</Link>
           </div>
           <div className={styles.col}>
             <h4>Mi cuenta</h4>

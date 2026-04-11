@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Páginas privadas - no indexar
+Disallow: /profile
+Disallow: /diary
+Disallow: /login
+Disallow: /register
+Disallow: /auth/
+
+# Sitemap
+Sitemap: https://cycat.lat/sitemap.xml
+Sitemap: https://cycat.lat/sitemap-genres.xml
+
+# Crawl delay para bots agresivos
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

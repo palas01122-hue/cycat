@@ -1,4 +1,5 @@
 import { useSearchParams, useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, SlidersHorizontal, ChevronLeft, Film, Tv } from 'lucide-react'
@@ -70,6 +71,11 @@ export default function SearchPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
+      <Helmet>
+        <title>{query ? `Resultados para "${query}" — CyCat` : 'Búsqueda — CyCat'}</title>
+        <meta name="description" content={query ? `Resultados de búsqueda para "${query}" en CyCat. Películas, series y más.` : 'Buscá películas y series en CyCat con filtros avanzados.'} />
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <motion.header className={styles.header} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
         <div className={styles.headerTop}>
           <Search size={20} className={styles.headerIcon} />

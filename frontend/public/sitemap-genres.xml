@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Géneros de Películas -->
+  <url><loc>https://cycat.lat/genre/movie/accion</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/aventura</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/animacion</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/comedia</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/crimen</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/documental</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/drama</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/fantasia</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/ciencia-ficcion</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/terror</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/romance</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/thriller</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/historia</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/musica</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cycat.lat/genre/movie/western</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Géneros de Series -->
+  <url><loc>https://cycat.lat/genre/tv/accion</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/aventura</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/animacion</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/comedia</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/crimen</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/documental</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/drama</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/fantasia</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/ciencia-ficcion</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/terror</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/romance</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cycat.lat/genre/tv/thriller</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+
+</urlset>

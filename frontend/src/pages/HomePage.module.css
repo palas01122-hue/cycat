@@ -323,3 +323,44 @@
   .carousel { height: 240px; }
   .carouselTitle { font-size: 20px; }
 }
+
+/* Sección géneros */
+.genreGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: var(--space-3);
+}
+
+.genreCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-3);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+  text-align: center;
+}
+.genreCard:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-dim);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(232,149,109,0.15);
+}
+
+.genreEmoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.genreLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 480px) {
+  .genreGrid { grid-template-columns: repeat(3, 1fr); }
+}

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { usePaginatedFetch, useFetch } from '../hooks/useFetch'
 import { catalogAPI } from '../services/api'
 import MediaGrid from '../components/catalog/MediaGrid'
+import { Helmet } from 'react-helmet-async'
 import styles from './CatalogPage.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Film, Tv, SlidersHorizontal } from 'lucide-react'
@@ -29,6 +30,13 @@ export default function CatalogPage({ type = 'movie' }) {
 
   return (
     <motion.div className={`container ${styles.page}`} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <Helmet>
+        <title>{type === 'movie' ? 'Películas — CyCat' : 'Series — CyCat'}</title>
+        <meta name="description" content={type === 'movie' ? 'Explorá el catálogo completo de películas. Filtrá por género, año y plataforma. Calificá y descubrí nuevas películas gratis.' : 'Explorá el catálogo completo de series. Filtrá por género y plataforma. Descubrí series nuevas y clásicos gratis.'} />
+        <link rel="canonical" href={type === 'movie' ? 'https://cycat.lat/movies' : 'https://cycat.lat/series'} />
+        <meta property="og:title" content={type === 'movie' ? 'Películas — CyCat' : 'Series — CyCat'} />
+        <meta property="og:url" content={type === 'movie' ? 'https://cycat.lat/movies' : 'https://cycat.lat/series'} />
+      </Helmet>
       <header className={styles.header}>
         <h1 className="heading-lg">{typeLabel}</h1>
 

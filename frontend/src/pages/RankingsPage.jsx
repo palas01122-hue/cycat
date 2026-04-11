@@ -5,6 +5,7 @@ import { Trophy, Film, Tv, Star, Calendar, Clapperboard, TrendingUp } from 'luci
 import { useFetch } from '../hooks/useFetch'
 import { rankingsAPI, catalogAPI, statsAPI } from '../services/api'
 import { getPosterUrl, formatRating, formatYear, getRatingColor } from '../utils/tmdb'
+import { Helmet } from 'react-helmet-async'
 import styles from './RankingsPage.module.css'
 
 const CURRENT_YEAR = new Date().getFullYear()
@@ -37,6 +38,14 @@ export default function RankingsPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
+      <Helmet>
+        <title>Rankings de Películas y Series — CyCat</title>
+        <meta name="description" content="Los mejores rankings de películas y series. Top por género, año y calificación. Descubrí qué ver con el ranking de CyCat." />
+        <link rel="canonical" href="https://cycat.lat/rankings" />
+        <meta property="og:title" content="Rankings de Películas y Series — CyCat" />
+        <meta property="og:url" content="https://cycat.lat/rankings" />
+        <script type="application/ld+json">{JSON.stringify({ "@context": "https://schema.org", "@type": "CollectionPage", "name": "Rankings de Películas y Series", "description": "Los mejores rankings de cine y series en español.", "url": "https://cycat.lat/rankings" })}</script>
+      </Helmet>
       <div className={styles.pageHeader}>
         <div className={styles.headerTitle}>
           <Trophy size={30} className={styles.headerIcon} />

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import StreamingSection from '../components/catalog/StreamingSection'
 import styles from './StreamingPage.module.css'
 
@@ -13,6 +14,13 @@ const PLATFORMS = [
 export default function StreamingPage() {
   return (
     <div className={`container page-enter ${styles.page}`}>
+      <Helmet>
+        <title>Plataformas de Streaming — Netflix, Disney+, Max, Prime — CyCat</title>
+        <meta name="description" content="Las mejores películas y series de Netflix, Disney+, Max, Prime Video, Apple TV+ y Paramount+. Descubrí qué ver en cada plataforma de streaming." />
+        <link rel="canonical" href="https://cycat.lat/streaming" />
+        <meta property="og:title" content="Plataformas de Streaming — CyCat" />
+        <meta property="og:url" content="https://cycat.lat/streaming" />
+      </Helmet>
       <div className={styles.header}>
         <h1 className="heading-lg">📡 Plataformas</h1>
         <p className={styles.sub}>Lo mejor y las novedades de cada servicio de streaming</p>
