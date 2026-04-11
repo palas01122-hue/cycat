@@ -18,6 +18,7 @@ import TmdbReviews from '../components/detail/TmdbReviews'
 import MediaGrid from '../components/catalog/MediaGrid'
 import styles from './DetailPage.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Badge } from '../components/ui/shadcn/badge'
 import { Play, Check } from 'lucide-react'
 
 export default function DetailPage({ type = 'movie' }) {
@@ -124,7 +125,7 @@ export default function DetailPage({ type = 'movie' }) {
           <div className={styles.infoSection}>
             <motion.div className={styles.meta} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <span className={styles.type}>{typeLabel}</span>
-              {item.genres?.map(g => <span key={g.id} className={styles.genre}>{g.name}</span>)}
+              {item.genres?.map(g => <Badge key={g.id} variant="muted">{g.name}</Badge>)}
             </motion.div>
 
             <h1 className={`heading-display ${styles.title}`}>{title}</h1>

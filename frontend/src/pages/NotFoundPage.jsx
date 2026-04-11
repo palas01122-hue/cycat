@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Clapperboard, Home } from 'lucide-react'
+import { Button } from '../components/ui/shadcn/button'
 import styles from './NotFoundPage.module.css'
 
 export default function NotFoundPage() {
@@ -53,10 +54,10 @@ export default function NotFoundPage() {
         transition={{ duration: 0.5, delay: 0.65 }}
       >
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link to="/" className={styles.back}>
+          <Button asChild variant="default" size="lg"><Link to="/">
             <Home size={16} />
             Volver al inicio
-          </Link>
+          </Link></Button>
         </motion.div>
       </motion.div>
     </div>

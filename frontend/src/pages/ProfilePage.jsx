@@ -7,6 +7,7 @@ import { useFetch } from '../hooks/useFetch'
 import { profileAPI, favoritesAPI } from '../services/api'
 import { getPosterUrl, formatRating, getRatingColor } from '../utils/tmdb'
 import StatsSection from '../components/detail/StatsSection'
+import { Card, CardContent } from '../components/ui/shadcn/card'
 import styles from './ProfilePage.module.css'
 
 const sectionVariants = {
