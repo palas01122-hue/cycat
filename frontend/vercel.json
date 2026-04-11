@@ -1,20 +1,29 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/sitemap.xml",        "dest": "/sitemap.xml" },
+    { "src": "/sitemap-genres.xml", "dest": "/sitemap-genres.xml" },
+    { "src": "/robots.txt",         "dest": "/robots.txt" },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+    },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "headers": [
     {
-      "source": "/assets/(.*)",
+      "source": "/sitemap(.*).xml",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Content-Type",   "value": "application/xml; charset=utf-8" },
+        { "key": "Cache-Control",  "value": "public, max-age=3600" }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        { "key": "X-Frame-Options",        "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy",         "value": "strict-origin-when-cross-origin" }
       ]
     }
   ]
