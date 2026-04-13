@@ -1,4 +1,4 @@
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -27,6 +27,8 @@ export default function SearchPage() {
   const [minRating,    setMinRating]    = useState('')
   const [maxRuntime,   setMaxRuntime]   = useState('')
   const [language,     setLanguage]     = useState('')
+  const [country,      setCountry]      = useState('')
+  const [provider,     setProvider]     = useState('')
 
   const { data: genreData } = useFetch(() => catalogAPI.getGenres(type), [type])
 
@@ -36,7 +38,25 @@ export default function SearchPage() {
     { code: 'ja', label: 'Japonés' }, { code: 'ko', label: 'Coreano' },
     { code: 'pt', label: 'Portugués' }, { code: 'it', label: 'Italiano' },
   ]
-  const YEARS = ['', ...Array.from({ length: 30 }, (_, i) => String(new Date().getFullYear() - i))]
+  const COUNTRIES = [
+    { code: '', label: 'Todos' }, { code: 'US', label: 'Estados Unidos' },
+    { code: 'GB', label: 'Reino Unido' }, { code: 'FR', label: 'Francia' },
+    { code: 'DE', label: 'Alemania' }, { code: 'IT', label: 'Italia' },
+    { code: 'ES', label: 'España' }, { code: 'AR', label: 'Argentina' },
+    { code: 'MX', label: 'México' }, { code: 'BR', label: 'Brasil' },
+    { code: 'JP', label: 'Japón' }, { code: 'KR', label: 'Corea del Sur' },
+    { code: 'IN', label: 'India' }, { code: 'CN', label: 'China' },
+  ]
+  const PROVIDERS = [
+    { id: '', label: 'Todas' },
+    { id: '8',    label: 'Netflix' },
+    { id: '337',  label: 'Disney+' },
+    { id: '119',  label: 'Prime Video' },
+    { id: '350',  label: 'Apple TV+' },
+    { id: '1899', label: 'Max' },
+    { id: '531',  label: 'Paramount+' },
+  ]
+  const YEARS = ['', ...Array.from({ length: 35 }, (_, i) => String(new Date().getFullYear() - i))]
 
   useEffect(() => {
     if (showAdvanced) { runAdvanced() }
@@ -53,7 +73,17 @@ export default function SearchPage() {
 
   const runAdvanced = () => {
     setLoading(true); setError(null)
-    searchAdvancedAPI.search({ q: query || undefined, type, year: year || undefined, genre: genre || undefined, minRating: minRating || undefined, maxRuntime: maxRuntime || undefined, language: language || undefined })
+    searchAdvancedAPI.search({
+      q: query || undefined,
+      type,
+      year: year || undefined,
+      genre: genre || undefined,
+      minRating: minRating || undefined,
+      maxRuntime: maxRuntime || undefined,
+      language: language || undefined,
+      country: country || undefined,
+      provider: provider || undefined,
+    })
       .then(res => setResults(res.data.results || []))
       .catch(err => setError(err.message))
       .finally(() => setLoading(false))
@@ -76,6 +106,7 @@ export default function SearchPage() {
         <meta name="description" content={query ? `Resultados de búsqueda para "${query}" en CyCat. Películas, series y más.` : 'Buscá películas y series en CyCat con filtros avanzados.'} />
         <meta name="robots" content="noindex, follow" />
       </Helmet>
+
       <motion.header className={styles.header} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
         <div className={styles.headerTop}>
           <Search size={20} className={styles.headerIcon} />
@@ -156,6 +187,18 @@ export default function SearchPage() {
                 <label>Idioma</label>
                 <select value={language} onChange={e => setLanguage(e.target.value)} className={styles.select}>
                   {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.label}</option>)}
+                </select>
+              </div>
+              <div className={styles.advField}>
+                <label>País</label>
+                <select value={country} onChange={e => setCountry(e.target.value)} className={styles.select}>
+                  {COUNTRIES.map(c => <option key={c.code} value={c.code}>{c.label}</option>)}
+                </select>
+              </div>
+              <div className={styles.advField}>
+                <label>Plataforma</label>
+                <select value={provider} onChange={e => setProvider(e.target.value)} className={styles.select}>
+                  {PROVIDERS.map(p => <option key={p.id} value={p.id}>{p.label}</option>)}
                 </select>
               </div>
               {type === 'movie' && (

@@ -13,7 +13,7 @@ router.get('/', wrap(async (req, res) => {
 
 // Búsqueda avanzada con filtros
 router.get('/advanced', wrap(async (req, res) => {
-  const { q, type = 'movie', year, genre, minRating, maxRuntime, language, page = 1 } = req.query
+  const { q, type = 'movie', year, genre, minRating, maxRuntime, language, country, provider, page = 1 } = req.query
 
   if (q?.trim()) {
     const data = await tmdb.searchByType(q, type, parseInt(page))
@@ -30,6 +30,8 @@ router.get('/advanced', wrap(async (req, res) => {
   if (minRating)  params['vote_average.gte'] = minRating
   if (maxRuntime && type === 'movie') params['with_runtime.lte'] = maxRuntime
   if (language)   params.with_original_language = language
+  if (country)    params.with_origin_country = country
+  if (provider)   { params.with_watch_providers = provider; params.watch_region = 'AR' }
 
   const res2 = await tmdb.default.get(`/discover/${type}`, { params })
   res.json(res2.data)

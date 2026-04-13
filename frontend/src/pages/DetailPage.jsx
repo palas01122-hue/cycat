@@ -15,6 +15,7 @@ import ReviewSection from '../components/detail/ReviewSection'
 import WatchProviders from '../components/detail/WatchProviders'
 import ExternalScores from '../components/detail/ExternalScores'
 import TmdbReviews from '../components/detail/TmdbReviews'
+import VoteHistogram from '../components/detail/VoteHistogram'
 import MediaGrid from '../components/catalog/MediaGrid'
 import styles from './DetailPage.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -26,7 +27,7 @@ export default function DetailPage({ type = 'movie' }) {
   const { isAuthenticated } = useAuth()
   const [userRating, setUserRating] = useState(0)
   const [ratingSubmitted, setRatingSubmitted] = useState(false)
-  const [showTrailer, setShowTrailer] = useState(false)
+  const [showTrailer, setShowTrailer] = useState(null)
   const [diaryAdded, setDiaryAdded] = useState(false)
   const [seasonSearch, setSeasonSearch] = useState('')
 
@@ -46,8 +47,20 @@ export default function DetailPage({ type = 'movie' }) {
   const rColor = getRatingColor(item.vote_average)
   const runtime = formatRuntime(item.runtime || item.episode_run_time?.[0])
   const directors = credits?.data?.crew?.filter(p => p.job === 'Director') || []
+  const writers = (credits?.data?.crew || [])
+    .filter(p => ['Screenplay', 'Writer', 'Story', 'Novel'].includes(p.job))
+    .filter((p, i, arr) => arr.findIndex(x => x.id === p.id) === i)
+    .slice(0, 3)
   const cast = (credits?.data?.cast || []).filter(p => p.profile_path).slice(0, 12)
-  const trailer = item.videos?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube')
+  const allTrailers = (item.videos?.results || [])
+    .filter(v => v.site === 'YouTube' && ['Trailer', 'Teaser'].includes(v.type))
+    .slice(0, 3)
+  const originalTitle = (item.original_title || item.original_name)
+  const showOriginal = originalTitle && originalTitle !== title
+  const countries = item.production_countries || []
+  const companies = item.production_companies || []
+  const collection = item.belongs_to_collection || null
+  const gallery = (item.images?.backdrops || []).slice(0, 10)
 
   const typeLabel = type === 'movie' ? 'Película' : 'Serie'
   const description = item.overview
@@ -129,6 +142,9 @@ export default function DetailPage({ type = 'movie' }) {
             </motion.div>
 
             <h1 className={`heading-display ${styles.title}`}>{title}</h1>
+            {showOriginal && (
+              <p className={styles.originalTitle}>{originalTitle}</p>
+            )}
 
             <div className={styles.subMeta}>
               <span>{year}</span>
@@ -162,7 +178,33 @@ export default function DetailPage({ type = 'movie' }) {
                 </span>
               </div>
             )}
+            {writers.length > 0 && (
+              <div className={styles.crew}>
+                <span className={styles.crewLabel}>Guión</span>
+                <span className={styles.crewNames}>
+                  {writers.map((w, i) => (
+                    <span key={`${w.id}-${w.job}`}>
+                      <Link to={`/person/${w.id}`} className={styles.crewLink}>{w.name}</Link>
+                      {i < writers.length - 1 ? ', ' : ''}
+                    </span>
+                  ))}
+                </span>
+              </div>
+            )}
+            {countries.length > 0 && (
+              <div className={styles.crew}>
+                <span className={styles.crewLabel}>País</span>
+                <span className={styles.crewNames}>{countries.slice(0, 2).map(c => c.name).join(', ')}</span>
+              </div>
+            )}
+            {companies.length > 0 && (
+              <div className={styles.crew}>
+                <span className={styles.crewLabel}>Producción</span>
+                <span className={styles.crewNames}>{companies.slice(0, 3).map(c => c.name).join(' · ')}</span>
+              </div>
+            )}
 
+            <VoteHistogram type={type} id={id} />
             <WatchProviders type={type} id={id} />
 
             {type === 'movie' && <ExternalScores movieId={id} />}
@@ -172,11 +214,11 @@ export default function DetailPage({ type = 'movie' }) {
               <div className={styles.actionRow}>
                 <FavoriteButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
                 <WatchlistButton contentId={id} type={type} title={title} posterPath={item.poster_path} />
-                {trailer && (
-                  <button onClick={() => setShowTrailer(true)} className={styles.trailerBtn}>
-                    <><Play size={14} /> Ver trailer</>
+                {allTrailers.map((t, i) => (
+                  <button key={t.key} onClick={() => setShowTrailer(t.key)} className={styles.trailerBtn}>
+                    <Play size={14} /> {i === 0 ? 'Ver trailer' : t.type === 'Teaser' ? 'Ver teaser' : `Trailer ${i + 1}`}
                   </button>
-                )}
+                ))}
               </div>
 
               <div className={styles.userRatingBlock}>
@@ -244,6 +286,42 @@ export default function DetailPage({ type = 'movie' }) {
           </section>
         )}
 
+        {collection && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Parte de la saga</h2>
+            <div className={styles.collectionCard}>
+              {collection.backdrop_path && (
+                <img
+                  src={`https://image.tmdb.org/t/p/w780${collection.backdrop_path}`}
+                  alt={collection.name}
+                  className={styles.collectionBg}
+                />
+              )}
+              <div className={styles.collectionOverlay}>
+                <span className={styles.collectionLabel}>COLECCIÓN</span>
+                <h3 className={styles.collectionName}>{collection.name}</h3>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {gallery.length > 2 && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Galería</h2>
+            <div className={styles.gallery}>
+              {gallery.map((img, i) => (
+                <img
+                  key={img.file_path || i}
+                  src={`https://image.tmdb.org/t/p/w500${img.file_path}`}
+                  alt={`Imagen ${i + 1}`}
+                  className={styles.galleryImg}
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
         <ReviewSection contentId={id} type={type} title={title} posterPath={item.poster_path} />
 
         <TmdbReviews type={type} id={id} />
@@ -256,8 +334,8 @@ export default function DetailPage({ type = 'movie' }) {
         )}
       </div>
 
-      {showTrailer && trailer && (
-        <TrailerModal videoKey={trailer.key} title={`${title} — Trailer`} onClose={() => setShowTrailer(false)} />
+      {showTrailer && (
+        <TrailerModal videoKey={showTrailer} title={`${title} — Trailer`} onClose={() => setShowTrailer(null)} />
       )}
     </motion.div>
   )

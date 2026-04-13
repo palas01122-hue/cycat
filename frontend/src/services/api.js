@@ -66,6 +66,7 @@ export const rankingsAPI = {
   getRating:     (type, id)        => api.get(`/rankings/rating/${type}/${id}`),
   getTopRanked:  (type = 'movie', page = 1) => api.get(`/rankings/top/${type}`, { params: { page } }),
   getUserRatings:()                => api.get('/rankings/user/ratings'),
+  getHistogram:  (type, id)        => api.get(`/rankings/histogram/${type}/${id}`),
 }
 
 // ── Favorites ────────────────────────────────────

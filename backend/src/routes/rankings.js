@@ -98,6 +98,34 @@ router.get('/top/:type', wrap(async (req, res) => {
   res.json({ source: 'tmdb', ...data })
 }))
 
+// Histograma de votos de la comunidad CyCat para un contenido
+router.get('/histogram/:type/:id', wrap(async (req, res) => {
+  const { type, id } = req.params
+  const db = getDb()
+
+  const rows = db.prepare(`
+    SELECT score, COUNT(*) as count
+    FROM ratings
+    WHERE content_id = ? AND content_type = ?
+    GROUP BY score
+    ORDER BY score
+  `).all(id, type)
+
+  // Completar scores del 1 al 10 aunque no haya votos
+  const distribution = Array.from({ length: 10 }, (_, i) => {
+    const score = i + 1
+    const found = rows.find(r => r.score === score)
+    return { score, count: found ? found.count : 0 }
+  })
+
+  const total = rows.reduce((sum, r) => sum + r.count, 0)
+  const average = total > 0
+    ? Math.round(rows.reduce((sum, r) => sum + r.score * r.count, 0) / total * 10) / 10
+    : null
+
+  res.json({ distribution, total, average })
+}))
+
 // Calificaciones del usuario
 router.get('/user/ratings', authenticate, wrap(async (req, res) => {
   const db = getDb()
