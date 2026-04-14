@@ -5,7 +5,7 @@ import CyCatLogo from '../ui/CyCatLogo'
 import styles from './Navbar.module.css'
 import { searchAPI } from '../../services/api'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, X, Menu, LogOut, Shuffle, Tv, Star, BookOpen, Film, Layers } from 'lucide-react'
+import { Search, X, Menu, LogOut, Shuffle, Tv, Star, BookOpen, Film, Layers, CalendarDays, Timer, BarChart2 } from 'lucide-react'
 
 const POSTER_BASE = 'https://image.tmdb.org/t/p/w92'
 const PROFILE_BASE = 'https://image.tmdb.org/t/p/w45'
@@ -80,14 +80,18 @@ export default function Navbar() {
   }
 
   const navLinks = [
-    { to: '/movies', label: 'Películas', icon: <Film size={14} /> },
-    { to: '/series', label: 'Series', icon: <Tv size={14} /> },
-    { to: '/rankings', label: 'Rankings', icon: <Star size={14} /> },
+    { to: '/movies',    label: 'Películas', icon: <Film size={14} /> },
+    { to: '/series',    label: 'Series',    icon: <Tv size={14} /> },
+    { to: '/rankings',  label: 'Rankings',  icon: <Star size={14} /> },
+    { to: '/calendar',  label: 'Estrenos',  icon: <CalendarDays size={14} /> },
+    { to: '/marathon',  label: 'Maratón',   icon: <Timer size={14} /> },
     { to: '/what-to-watch', label: '¿Qué veo?', icon: <Shuffle size={14} /> },
-    { to: '/lists', label: 'Listas', icon: <Layers size={14} /> },
     { to: '/streaming', label: 'Streaming', icon: <Tv size={14} /> },
   ]
-  if (isAuthenticated) navLinks.push({ to: '/diary', label: 'Diario', icon: <BookOpen size={14} /> })
+  if (isAuthenticated) {
+    navLinks.push({ to: '/diary', label: 'Diario', icon: <BookOpen size={14} /> })
+    navLinks.push({ to: '/stats', label: 'Stats',  icon: <BarChart2 size={14} /> })
+  }
 
   return (
     <motion.header
