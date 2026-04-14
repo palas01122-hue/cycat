@@ -20,6 +20,8 @@ import diaryRoutes     from './routes/diary.js'
 import listsRoutes     from './routes/lists.js'
 import discoverRoutes  from './routes/discover.js'
 import streamingRoutes from './routes/streaming.js'
+import calendarRoutes  from './routes/calendar.js'
+import marathonRoutes  from './routes/marathon.js'
 
 const app  = express()
 const PORT = process.env.PORT || 3001
@@ -86,6 +88,8 @@ app.use('/api/diary',     diaryRoutes)
 app.use('/api/lists',     listsRoutes)
 app.use('/api/discover',  discoverRoutes)
 app.use('/api/streaming', streamingRoutes)
+app.use('/api/calendar',  calendarRoutes)
+app.use('/api/marathon',  marathonRoutes)
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'CyCat API v3' }))
 app.use((req, res) => res.status(404).json({ error: 'Ruta no encontrada' }))

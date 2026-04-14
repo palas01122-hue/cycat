@@ -143,3 +143,14 @@ export const streamingAPI = {
 export const searchAdvancedAPI = {
   search: (params) => api.get('/search/advanced', { params }),
 }
+
+// ── Calendar ──────────────────────────────────────
+export const calendarAPI = {
+  getUpcoming: (params) => api.get('/calendar', { params }),
+}
+
+// ── Marathon ──────────────────────────────────────
+export const marathonAPI = {
+  search:     (q)  => api.get('/marathon/search', { params: { q } }),
+  collection: (id) => api.get(`/marathon/collection/${id}`),
+}

@@ -20,6 +20,9 @@ import ListsPage from './pages/ListsPage'
 import StreamingPage from './pages/StreamingPage'
 import { TermsPage, PrivacyPage } from './pages/LegalPages'
 import GenrePage from './pages/GenrePage'
+import CalendarPage from './pages/CalendarPage'
+import MarathonPage from './pages/MarathonPage'
+import StatsPage from './pages/StatsPage'
 import { AuthProvider } from './hooks/useAuth'
 
 export default function App() {
@@ -50,6 +53,9 @@ export default function App() {
               <Route path="lists/:id" element={<ListsPage />} />
               <Route path="streaming" element={<StreamingPage />} />
               <Route path="genre/:type/:slug" element={<GenrePage />} />
+              <Route path="calendar" element={<CalendarPage />} />
+              <Route path="marathon" element={<MarathonPage />} />
+              <Route path="stats" element={<StatsPage />} />
               <Route path="terms" element={<TermsPage />} />
               <Route path="privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFoundPage />} />

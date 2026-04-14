@@ -50,12 +50,43 @@ router.get('/me', authenticate, wrap(async (req, res) => {
     FROM reviews WHERE user_id = ?
   `).get(uid)
 
+  // Actividad por mes (últimos 12 meses)
+  const byMonth = db.prepare(`
+    SELECT strftime('%Y-%m', watched_date) as month, COUNT(*) as count
+    FROM diary WHERE user_id = ?
+    AND watched_date >= date('now', '-12 months')
+    GROUP BY month ORDER BY month ASC
+  `).all(uid)
+
+  // Total de horas estimadas (película ~105min, episodio ~45min)
+  const movieCount = db.prepare(`SELECT COUNT(*) as c FROM diary WHERE user_id = ? AND content_type = 'movie'`).get(uid).c
+  const tvCount    = db.prepare(`SELECT COUNT(*) as c FROM diary WHERE user_id = ? AND content_type = 'tv'`).get(uid).c
+  const totalMinutes = (movieCount * 105) + (tvCount * 45)
+
+  // Racha actual (días consecutivos con actividad en diary)
+  const diaryDates = db.prepare(`
+    SELECT DISTINCT date(watched_date) as d
+    FROM diary WHERE user_id = ?
+    ORDER BY d DESC LIMIT 365
+  `).all(uid).map(r => r.d)
+
+  let streak = 0
+  const todayStr = new Date().toISOString().split('T')[0]
+  let cursor = todayStr
+  for (const d of diaryDates) {
+    if (d === cursor) { streak++; const prev = new Date(cursor); prev.setDate(prev.getDate() - 1); cursor = prev.toISOString().split('T')[0] }
+    else break
+  }
+
   res.json({
     totals,
     distribution,
     byYear,
+    byMonth,
     recent,
     reviewStats,
+    totalMinutes,
+    streak,
     favorites:  db.prepare('SELECT COUNT(*) as c FROM favorites WHERE user_id = ?').get(uid).c,
     watchlist:  db.prepare('SELECT COUNT(*) as c FROM watchlist WHERE user_id = ?').get(uid).c,
   })
