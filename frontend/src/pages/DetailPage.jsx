@@ -289,7 +289,7 @@ export default function DetailPage({ type = 'movie' }) {
         {collection && (
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Parte de la saga</h2>
-            <div className={styles.collectionCard}>
+            <Link to={`/collection/${collection.id}`} className={styles.collectionCard}>
               {collection.backdrop_path && (
                 <img
                   src={`https://image.tmdb.org/t/p/w780${collection.backdrop_path}`}
@@ -300,8 +300,9 @@ export default function DetailPage({ type = 'movie' }) {
               <div className={styles.collectionOverlay}>
                 <span className={styles.collectionLabel}>COLECCIÓN</span>
                 <h3 className={styles.collectionName}>{collection.name}</h3>
+                <span className={styles.collectionCta}>Ver todas las películas →</span>
               </div>
-            </div>
+            </Link>
           </section>
         )}
 

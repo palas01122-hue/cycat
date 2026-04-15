@@ -213,12 +213,20 @@
 
 /* Collection card */
 .collectionCard {
+  display: block;
   position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden;
   height: 160px;
   border: 1px solid rgba(212,175,55,0.3);
   background: var(--color-bg-card);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+.collectionCard:hover {
+  border-color: rgba(212,175,55,0.7);
+  box-shadow: 0 0 24px rgba(212,175,55,0.15);
 }
 .collectionBg {
   width: 100%;
@@ -249,7 +257,17 @@
   font-weight: 700;
   color: var(--color-text-primary);
   line-height: 1.1;
+  margin-bottom: var(--space-2);
 }
+.collectionCta {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+.collectionCard:hover .collectionCta { opacity: 1; }
 
 /* Gallery */
 .gallery {
