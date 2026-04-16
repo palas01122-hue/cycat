@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import CookieConsent from '../ui/CookieConsent'
 import styles from './Layout.module.css'
 
 export default function Layout() {
@@ -11,6 +12,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   )
 }

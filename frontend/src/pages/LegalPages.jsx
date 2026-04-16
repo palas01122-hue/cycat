@@ -135,13 +135,27 @@ export function PrivacyPage() {
 
         <Section title="4. Cookies y almacenamiento local">
           Usamos localStorage del navegador para mantener tu sesión iniciada.
-          No usamos cookies de rastreo ni de publicidad de terceros.
+          <br /><br />
+          Adicionalmente, mostramos publicidad a través de <strong>Google AdSense</strong>,
+          que puede utilizar cookies propias y de terceros para personalizar anuncios
+          según tus visitas a este y otros sitios. Podés consultar y gestionar tus preferencias
+          publicitarias en <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" style={{color:'var(--color-accent)'}}>adssettings.google.com</a>.
+          <br /><br />
+          Al continuar usando el sitio, aceptás el uso de estas cookies. Podés rechazarlas
+          usando el banner de consentimiento que aparece al ingresar por primera vez.
         </Section>
 
         <Section title="5. Servicios de terceros">
           <strong>Google OAuth:</strong> Si iniciás sesión con Google, tu autenticación
           es procesada por Google. Consultá la Política de Privacidad de Google para
           más información sobre cómo manejan tus datos.
+          <br /><br />
+          <strong>Google AdSense:</strong> Usamos AdSense para mostrar publicidad.
+          Google puede usar cookies para personalizar anuncios en función de tus visitas anteriores.
+          Consultá la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={{color:'var(--color-accent)'}}>Política de Privacidad de Google</a> para más información.
+          <br /><br />
+          <strong>Google Analytics:</strong> Usamos Google Analytics 4 para analizar el tráfico
+          del sitio de forma anónima y mejorar la experiencia del usuario.
           <br /><br />
           <strong>TMDB:</strong> Las búsquedas e imágenes se realizan a través de la API de TMDB.
           Consultá la política de privacidad de TMDB en themoviedb.org.
