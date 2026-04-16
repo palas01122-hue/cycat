@@ -9,6 +9,7 @@ import StreamingSection from '../components/catalog/StreamingSection'
 import { BANNERS, AUTOPLAY_INTERVAL } from '../data/banners'
 import { ChevronLeft, ChevronRight, TrendingUp, Trophy, Tv, Film } from 'lucide-react'
 import styles from './HomePage.module.css'
+import EmailCapture from '../components/EmailCapture'
 
 const POSTER_BASE = 'https://image.tmdb.org/t/p/w185'
 
@@ -243,6 +244,10 @@ export default function HomePage() {
         </div>
         <MediaGrid items={topSeries?.results?.slice(0, 10)} type="tv" loading={ls} skeletonCount={10} />
       </motion.section>
+
+      <motion.div className="container" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}>
+        <EmailCapture />
+      </motion.div>
 
       <motion.div className="container" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
         <a href="/streaming" className={styles.allPlatforms}>

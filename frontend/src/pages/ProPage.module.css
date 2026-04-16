@@ -1,0 +1,271 @@
+.page {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+  min-height: calc(100vh - var(--nav-height));
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-gold-dim);
+  border: 1px solid rgba(232, 201, 122, 0.3);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 68px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.titleAccent {
+  color: var(--color-gold);
+}
+
+.subtitle {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Plans grid ── */
+.plansGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  max-width: 860px;
+  margin: 0 auto var(--space-12);
+}
+
+@media (max-width: 640px) {
+  .plansGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Plan card base ── */
+.planCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.planCard:hover {
+  border-color: var(--color-border-hover);
+}
+
+/* ── Pro card special treatment ── */
+.planCardPro {
+  border-color: rgba(232, 201, 122, 0.4);
+  background: linear-gradient(160deg, var(--color-bg-card) 0%, rgba(232, 201, 122, 0.05) 100%);
+  box-shadow: 0 0 40px rgba(232, 201, 122, 0.08);
+}
+
+.planCardPro:hover {
+  border-color: rgba(232, 201, 122, 0.7);
+  box-shadow: 0 0 60px rgba(232, 201, 122, 0.14);
+}
+
+.proGlow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(232, 201, 122, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Plan header ── */
+.planHeader {
+  margin-bottom: var(--space-6);
+}
+
+.planTopRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.planName {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.proBadge {
+  background: linear-gradient(135deg, var(--color-gold), #c8a94a);
+  color: #1c1510;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+
+.planPrice {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--color-gold);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.planPriceFree {
+  color: var(--color-text-secondary);
+}
+
+.planInterval {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.planDescription {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Features list ── */
+.featureList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.featureItem.excluded {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.featureIcon {
+  font-size: 15px;
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+  line-height: 1;
+}
+
+/* ── CTA button ── */
+.ctaBtn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--color-gold), #c8a94a);
+  color: #1c1510;
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.ctaBtn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(232, 201, 122, 0.4);
+}
+
+.ctaBtnFree {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  cursor: default;
+  letter-spacing: 0.01em;
+}
+
+/* ── Trial note ── */
+.trialNote {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-12);
+}
+
+.trialNote strong {
+  color: var(--color-text-secondary);
+}
+
+/* ── FAQ / bottom strip ── */
+.faqRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  padding: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.faqItem {
+  text-align: center;
+}
+
+.faqIcon {
+  font-size: 20px;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.faqLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.faqSub {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}

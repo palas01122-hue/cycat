@@ -91,36 +91,39 @@ export default function DetailPage({ type = 'movie' }) {
     <motion.div className={styles.page} data-testid="detail-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45 }}>
       <Helmet>
         <title>{`${title} (${year}) — CyCat`}</title>
-        <meta name="description" content={description} />
+        <meta name="description" content={`${item.overview?.slice(0, 155)}...`} />
         <link rel="canonical" href={pageUrl} />
-        <meta property="og:type" content={type === 'movie' ? 'video.movie' : 'video.tv_show'} />
-        <meta property="og:title" content={`${title} (${year}) — CyCat`} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={posterUrl} />
-        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={`${title} (${year})`} />
+        <meta property="og:description" content={item.overview?.slice(0, 200)} />
+        <meta property="og:image" content={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+        <meta property="og:url" content={`https://cycat.lat/${type}/${id}`} />
+        <meta property="og:type" content="video.movie" />
         <meta property="og:site_name" content="CyCat" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${title} (${year}) — CyCat`} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={posterUrl} />
+        <meta name="twitter:title" content={`${title} (${year})`} />
+        <meta name="twitter:image" content={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": type === 'movie' ? "Movie" : "TVSeries",
           "name": title,
-          "datePublished": item.release_date || item.first_air_date,
+          "alternateName": showOriginal ? originalTitle : undefined,
           "description": item.overview,
-          "image": posterUrl,
-          "aggregateRating": item.vote_average ? {
+          "image": `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+          "datePublished": item.release_date || item.first_air_date,
+          "aggregateRating": item.vote_count > 0 ? {
             "@type": "AggregateRating",
-            "ratingValue": item.vote_average.toFixed(1),
+            "ratingValue": item.vote_average?.toFixed(1),
             "ratingCount": item.vote_count,
             "bestRating": "10",
             "worstRating": "1"
           } : undefined,
-          "director": directors.length > 0 ? directors.map(d => ({
-            "@type": "Person", "name": d.name
-          })) : undefined,
-          "url": pageUrl
+          "director": directors.slice(0, 3).map(d => ({ "@type": "Person", "name": d.name })),
+          "actor": cast.slice(0, 5).map(a => ({ "@type": "Person", "name": a.name })),
+          "genre": item.genres?.map(g => g.name),
+          "contentRating": item.adult ? "R" : undefined,
+          "duration": item.runtime ? `PT${item.runtime}M` : undefined,
+          "inLanguage": item.original_language,
+          "url": `https://cycat.lat/${type}/${id}`
         })}</script>
       </Helmet>
 

@@ -23,6 +23,7 @@ import GenrePage from './pages/GenrePage'
 import CalendarPage from './pages/CalendarPage'
 import MarathonPage from './pages/MarathonPage'
 import StatsPage from './pages/StatsPage'
+import ProPage from './pages/ProPage'
 import { AuthProvider } from './hooks/useAuth'
 
 export default function App() {
@@ -56,6 +57,7 @@ export default function App() {
               <Route path="calendar" element={<CalendarPage />} />
               <Route path="marathon" element={<MarathonPage />} />
               <Route path="stats" element={<StatsPage />} />
+              <Route path="pro" element={<ProPage />} />
               <Route path="terms" element={<TermsPage />} />
               <Route path="privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFoundPage />} />

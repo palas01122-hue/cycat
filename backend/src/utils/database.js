@@ -95,6 +95,13 @@ export async function initDatabase() {
     CREATE INDEX IF NOT EXISTS idx_diary_user       ON diary(user_id);
     CREATE INDEX IF NOT EXISTS idx_lists_user       ON user_lists(user_id);
     CREATE INDEX IF NOT EXISTS idx_lists_public     ON user_lists(is_public);
+    CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL UNIQUE,
+      subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      active INTEGER DEFAULT 1
+    );
+    CREATE INDEX IF NOT EXISTS idx_newsletter_email ON newsletter_subscribers(email);
   `)
 
   const migrations = [
