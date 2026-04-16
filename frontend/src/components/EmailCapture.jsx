@@ -2,10 +2,10 @@ import { useState } from 'react'
 import styles from './EmailCapture.module.css'
 
 export default function EmailCapture() {
-  if (localStorage.getItem('cycat_newsletter_subscribed') === 'true') return null
-
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
+
+  if (localStorage.getItem('cycat_newsletter_subscribed') === 'true') return null
 
   async function handleSubmit(e) {
     e.preventDefault()
