@@ -8,11 +8,11 @@ export const BANNERS = [
     linkText: 'Ver ficha',
   },
   {
-    image: 'https://m.media-amazon.com/images/M/MV5BM2ZiZjI4YzUtMjVmYy00MWM1LTg4NTctYTAyOGU4Y2NjYmE2XkEyXkFqcGdeQWFkcmllY2xh._V1_.jpg',
+    image: 'https://cdn.district.in/movies-assets/images/cinema/Michael_hor%20(1)-90678460-bbc5-11f0-95ca-7bfb6916c8a0.jpg',
     label: '🎬 En cartelera',
-    title: 'El Drama',
-    subtitle: 'Zendaya y Robert Pattinson. Una boda, un secreto, todo fuera de control.',
-    link: '/movie/1325734',
+    title: 'Larga vida al Rey',
+    subtitle: 'El Rey del pop estrena su corona en todos los cines.',
+    link: 'https://www.cycat.lat/movie/936075',
     linkText: 'Ver ficha',
   },
   {

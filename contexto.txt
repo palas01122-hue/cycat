@@ -1,0 +1,86 @@
+## CyCat — Estructura y Contexto del Proyecto
+
+---
+
+### Qué es
+
+**CyCat** es una plataforma web de descubrimiento, valoración y seguimiento de películas y series, inspirada en FilmAffinity, IMDb y Letterboxd. Monorepo con frontend React + backend Node.js + base de datos SQLite.
+
+---
+
+### Estructura de carpetas
+
+```
+cycat/
+├── frontend/          # SPA React + Vite
+├── backend/           # API REST Node.js + Express
+├── testing/           # Tests E2E con Playwright
+├── scripts/instagram/ # Bot de publicación automática
+├── docs/              # Decisiones de arquitectura
+├── .github/workflows/ # CI/CD (Instagram bot)
+└── package.json       # Monorepo (npm workspaces)
+```
+
+---
+
+### Stack técnico
+
+| Capa | Tecnología |
+|------|-----------|
+| Frontend | React 18, Vite 5, Tailwind CSS 4, Framer Motion |
+| UI | Radix UI / shadcn/ui, Swiper, Lucide Icons |
+| Routing | React Router DOM 6 |
+| HTTP | Axios + interceptores JWT |
+| Backend | Node.js, Express 4 |
+| Base de datos | SQLite (better-sqlite3) |
+| Auth | JWT (7 días) + Google OAuth 2.0 (Passport.js) |
+| Seguridad | Helmet, express-rate-limit, bcryptjs |
+| Datos externos | The Movie Database API (TMDB) — proxied por backend |
+| Tests | Playwright (E2E + contrato API) |
+| Deploy | Vercel (frontend) + Railway/Fly.io (backend) |
+
+---
+
+### Frontend — páginas principales
+
+| Página | Propósito |
+|--------|-----------|
+| [HomePage](frontend/src/pages/HomePage.jsx) | Hero + tendencias + secciones por streaming |
+| [CatalogPage](frontend/src/pages/CatalogPage.jsx) | Catálogo con filtros de género y tipo |
+| [DetailPage](frontend/src/pages/DetailPage.jsx) | Ficha completa: reparto, ratings, tráiler, similares |
+| [SearchPage](frontend/src/pages/SearchPage.jsx) | Búsqueda global |
+| [DiaryPage](frontend/src/pages/DiaryPage.jsx) | Historial personal de visionados |
+| [StatsPage](frontend/src/pages/StatsPage.jsx) | Dashboard de estadísticas del usuario |
+| [CalendarPage](frontend/src/pages/CalendarPage.jsx) | Próximos estrenos |
+| [MarathonPage](frontend/src/pages/MarathonPage.jsx) | Listas maratón curadas (ej. MCU en orden) |
+| [ListsPage](frontend/src/pages/ListsPage.jsx) | Listas personalizadas del usuario |
+| [ProfilePage](frontend/src/pages/ProfilePage.jsx) | Perfil, avatar y estadísticas |
+
+---
+
+### Backend — rutas API
+
+`/api/catalog`, `/api/detail`, `/api/search`, `/api/auth`, `/api/rankings`, `/api/favorites`, `/api/reviews`, `/api/diary`, `/api/lists`, `/api/stats`, `/api/streaming`, `/api/calendar`, `/api/marathon`
+
+El backend actúa como **proxy seguro** hacia TMDB (la API key nunca llega al cliente). Negocia idioma según el header `Accept-Language` (15+ idiomas).
+
+---
+
+### Base de datos SQLite
+
+8 tablas: `users`, `ratings`, `reviews`, `review_likes`, `favorites`, `watchlist`, `diary`, `user_lists`, `list_items` — con FK constraints y cascading deletes.
+
+---
+
+### Funcionalidades implementadas
+
+- Catálogo browsable con paginación y filtros de género
+- Valoraciones 1–10 con comparativa CyCat vs IMDb vs TMDB
+- Reseñas con spoiler warning + likes
+- Diario de visionados con fechas
+- Listas personalizadas públicas/privadas
+- "¿Qué ver?" (recomendador)
+- Maratones curados
+- Calendario de estrenos
+- Dashboard de estadísticas personales
+- Auth email/password + Google OAuth

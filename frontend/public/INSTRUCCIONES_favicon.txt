@@ -1,0 +1,34 @@
+============================================
+INSTRUCCIONES PARA AGREGAR EL FAVICON EN CYCAT
+============================================
+
+1. COPIÁ ESTOS ARCHIVOS a la carpeta: frontend/public/
+   - favicon.ico
+   - favicon-16x16.png
+   - favicon-32x32.png
+   - favicon-48x48.png
+   - favicon-96x96.png
+   - favicon-192x192.png
+   - favicon-512x512.png
+   - apple-touch-icon.png
+
+2. ABRÍ el archivo: frontend/index.html
+   Dentro del <head>, REEMPLAZÁ o AGREGÁ estos tags:
+
+<!-- ===== FAVICON CYCAT ===== -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+3. DEPLOY a Vercel (git push).
+
+4. Verificá en: https://realfavicongenerator.net/favicon_checker?site=cycat.lat
+
+IMPORTANTE: Google puede tardar días/semanas en actualizar
+el ícono en los resultados de búsqueda, pero se actualizará solo.
+============================================
