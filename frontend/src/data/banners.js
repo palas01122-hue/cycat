@@ -8,7 +8,7 @@ export const BANNERS = [
     linkText: 'Ver ficha',
   },
   {
-    image: 'https://cdn.district.in/movies-assets/images/cinema/Michael_hor%20(1)-90678460-bbc5-11f0-95ca-7bfb6916c8a0.jpg',
+    image: 'https://cdn.eldestapeweb.com/eldestape/112025/1763043010894/michael-pelicula-biopic-jpg..jpg?cw=1200&ch=675',
     label: '🎬 En cartelera',
     title: 'Larga vida al Rey',
     subtitle: 'El Rey del pop estrena su corona en todos los cines.',
