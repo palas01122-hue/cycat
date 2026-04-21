@@ -1,10 +1,10 @@
 export const BANNERS = [
   {
-    image: 'https://media.vandalsports.com/master/1-2026/202619134819_1.jpg',
-    label: '📺 Última temporada',
-    title: 'The Boys',
-    subtitle: 'La serie más disruptiva llega a su fin. ¿Podrán los Boys detener a Homelander?',
-    link: '/tv/76479',
+    image: 'https://media.gq.com.mx/photos/696689cf26895c3cd18985ab/16:9/w_2560%2Cc_limit/La%2520Momia.jpg',
+    label: '🎬 En cartelera',
+    title: '¿La mejora del año?',
+    subtitle: 'Llega "La momia de Lee Cronin" que apunta a ser la mejor pelicula de terror del año',
+    link: 'https://www.cycat.lat/movie/1304313',
     linkText: 'Ver ficha',
   },
   {
